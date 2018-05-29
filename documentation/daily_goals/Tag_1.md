@@ -8,3 +8,9 @@
 * Klassendiagramm in der Dokumentation
 
 ```
+
+## Fazit Jonas
+
+
+## Fazit Benji
+
