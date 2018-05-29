@@ -7,8 +7,21 @@ XXX
 
 ```
 
-## Fazit Jonas
+## Tagebuch Jonas
+### Tätigkeiten
+
+### Soll-Ist-Vergleich
+
+### Erkenntnisse
+
+### Fazit
 
 
-## Fazit Benji
+## Tagebuch Benji
+### Tätigkeiten
 
+### Soll-Ist-Vergleich
+
+### Erkenntnisse
+
+### Fazit
