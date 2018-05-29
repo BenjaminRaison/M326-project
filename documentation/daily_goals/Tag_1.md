@@ -21,9 +21,24 @@
 
 ## Tagebuch Benji
 ### Tätigkeiten
+#### Projekt aufsetzen
+Ich habe unser Projekt als gradle-Projekt aufgesetzt und auf Github veröffentlicht.
+
+#### Use cases
+Ich habe 5 use cases bereits auf Github erfasst.
+
+#### Datenbank
+Ich habe versucht, mich mit der Access-Datenbank zu verbinden. Nach vielem hin-und-her funktioniert es jetzt.
+
+##### POJO
+Ich habe die Datenbankobjekte erstellt. 
 
 ### Soll-Ist-Vergleich
+Alle ziele wurden erreicht.
 
 ### Erkenntnisse
+* Spalten in Access heissen nicht unbedingt so, wie sie angezeigt werden.
+* UCanAccess braucht keine Authentifizierung
 
 ### Fazit
+Der Tag verlief gut.
