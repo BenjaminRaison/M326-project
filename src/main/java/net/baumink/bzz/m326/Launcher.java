@@ -1,3 +1,5 @@
+package net.baumink.bzz.m326;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
