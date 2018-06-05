@@ -1,9 +1,10 @@
-# Tagesziele vom Tag XXX
+# Tagesziele vom Tag 2
 
 ## Ziele
 
-* 
-*
+* Exception handling
+* Daos
+* JFrame layout
 
 ## Tagebuch Jonas
 ### Tätigkeiten
