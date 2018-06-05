@@ -3,7 +3,7 @@
 ## Ziele
 
 * Exception handling
-* Daos
+* DAOs
 * JFrame layout
 
 ## Tagebuch Jonas
@@ -23,9 +23,17 @@ Der Tag verlief gut, die Ziele wurden erreicht.
 
 ## Tagebuch Benji
 ### Tätigkeiten
+* Tagesziele definieren
+* DAOs für alle Entitäten
+* User stories schreiben
+* Jonas helfen
 
 ### Soll-Ist-Vergleich
+Ich habe meine Ziele vollständig erreicht. Einzig das Testen fehlt noch.
+Jonas habe ich mit seinen Zielen unterstützt.
 
 ### Erkenntnisse
+* Keine
 
 ### Fazit
+Der Tag verlief gut.
