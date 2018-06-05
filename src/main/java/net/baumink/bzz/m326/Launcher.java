@@ -1,5 +1,6 @@
 package net.baumink.bzz.m326;
 
+import net.baumink.bzz.m326.view.MainWindow;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.swing.*;
@@ -16,6 +17,6 @@ public class Launcher {
             }
         });
 
-        throw new RuntimeException("NOT IMPLEMENTED");
+        new MainWindow();
     }
 }
