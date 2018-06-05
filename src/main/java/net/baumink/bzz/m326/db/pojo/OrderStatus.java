@@ -1,6 +1,5 @@
 package net.baumink.bzz.m326.db.pojo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class OrderStatus {
@@ -9,16 +8,16 @@ public class OrderStatus {
     private Order order;
     private String status;
     private LocalDateTime edited;
-    private LocalDate deliveryPlanned;
+    private LocalDateTime deliveryPlanned;
 
-    public OrderStatus(Order order, String status, LocalDateTime edited, LocalDate deliveryPlanned) {
+    public OrderStatus(Order order, String status, LocalDateTime edited, LocalDateTime deliveryPlanned) {
         this.order = order;
         this.status = status;
         this.edited = edited;
         this.deliveryPlanned = deliveryPlanned;
     }
 
-    public OrderStatus(int id, Order order, String status, LocalDateTime edited, LocalDate deliveryPlanned) {
+    public OrderStatus(int id, Order order, String status, LocalDateTime edited, LocalDateTime deliveryPlanned) {
         this.id = id;
         this.order = order;
         this.status = status;
@@ -58,11 +57,11 @@ public class OrderStatus {
         this.edited = edited;
     }
 
-    public LocalDate getDeliveryPlanned() {
+    public LocalDateTime getDeliveryPlanned() {
         return deliveryPlanned;
     }
 
-    public void setDeliveryPlanned(LocalDate deliveryPlanned) {
+    public void setDeliveryPlanned(LocalDateTime deliveryPlanned) {
         this.deliveryPlanned = deliveryPlanned;
     }
 

@@ -64,9 +64,9 @@ public class OrderDaoImpl implements IOrderDao {
     }
 
     @Override
-    public Order getById(int id) {
+    public Order getById(String id) {
         try (PreparedStatement statement = connection.prepareStatement("SELECT BID, FKKunde, FKStatus, FKMitarbeiter FROM Bestellung WHERE BID=?;")) {
-            statement.setInt(1, id);
+            statement.setString(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 return new Order(

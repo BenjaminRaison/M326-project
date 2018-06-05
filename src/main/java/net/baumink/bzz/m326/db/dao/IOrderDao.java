@@ -12,7 +12,7 @@ public interface IOrderDao {
 
     void delete(Order order);
 
-    Order getById(int id);
+    Order getById(String id);
 
     List<Order> getAll();
 
