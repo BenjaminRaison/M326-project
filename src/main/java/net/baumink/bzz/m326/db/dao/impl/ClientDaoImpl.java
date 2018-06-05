@@ -80,7 +80,7 @@ public class ClientDaoImpl implements IClientDao {
             }
             throw new InvalidPrimaryKeyException("Kunde", "getById");
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to update client!", e);
+            throw new RuntimeException("Failed to fetch client!", e);
         }
     }
 
@@ -102,7 +102,7 @@ public class ClientDaoImpl implements IClientDao {
             }
             return list;
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to update client!", e);
+            throw new RuntimeException("Failed to fetch clients!", e);
         }
     }
 }

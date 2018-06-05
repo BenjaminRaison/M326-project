@@ -65,7 +65,7 @@ public class EmployeeDaoImpl implements IEmployeeDao {
             }
             throw new InvalidPrimaryKeyException("Mitarbeiter", "getById");
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to update employee!", e);
+            throw new RuntimeException("Failed to fetch employee!", e);
         }
     }
 
@@ -82,7 +82,7 @@ public class EmployeeDaoImpl implements IEmployeeDao {
             }
             return list;
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to update employee!", e);
+            throw new RuntimeException("Failed to fetch employees!", e);
         }
     }
 }
