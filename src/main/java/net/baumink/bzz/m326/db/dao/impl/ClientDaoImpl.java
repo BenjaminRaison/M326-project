@@ -11,10 +11,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Client dao.
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
+ */
 public class ClientDaoImpl implements IClientDao {
 
     private Connection connection;
 
+    /**
+     * Instantiates a new Client dao.
+     *
+     * @param connection the connection
+     */
     public ClientDaoImpl(Connection connection) {
         this.connection = connection;
     }

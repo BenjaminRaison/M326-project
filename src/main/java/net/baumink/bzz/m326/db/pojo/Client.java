@@ -1,5 +1,12 @@
 package net.baumink.bzz.m326.db.pojo;
 
+/**
+ * Client POJO
+ *
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
+ *
+ */
 public class Client {
 
     private int id;
@@ -11,6 +18,18 @@ public class Client {
     private String email;
     private String password;
 
+
+    /**
+     * Instantiates a new Client.
+     *
+     * @param surname   the surname
+     * @param firstName the first name
+     * @param adress    the adress
+     * @param postcode  the postcode
+     * @param town      the town
+     * @param email     the email
+     * @param password  the password
+     */
     public Client(String surname, String firstName, String adress, String postcode, String town, String email, String password) {
         this.surname = surname;
         this.firstName = firstName;
@@ -21,6 +40,18 @@ public class Client {
         this.password = password;
     }
 
+    /**
+     * Instantiates a new Client.
+     *
+     * @param id        the id
+     * @param surname   the surname
+     * @param firstName the first name
+     * @param adress    the adress
+     * @param postcode  the postcode
+     * @param town      the town
+     * @param email     the email
+     * @param password  the password
+     */
     public Client(int id, String surname, String firstName, String adress, String postcode, String town, String email, String password) {
         this.id = id;
         this.surname = surname;
@@ -32,66 +63,146 @@ public class Client {
         this.password = password;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Gets surname.
+     *
+     * @return the surname
+     */
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * Sets surname.
+     *
+     * @param surname the surname
+     */
     public void setSurname(String surname) {
         this.surname = surname;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets first name.
+     *
+     * @param firstName the first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets adress.
+     *
+     * @return the adress
+     */
     public String getAdress() {
         return adress;
     }
 
+    /**
+     * Sets adress.
+     *
+     * @param adress the adress
+     */
     public void setAdress(String adress) {
         this.adress = adress;
     }
 
+    /**
+     * Gets postcode.
+     *
+     * @return the postcode
+     */
     public String getPostcode() {
         return postcode;
     }
 
+    /**
+     * Sets postcode.
+     *
+     * @param postcode the postcode
+     */
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
+    /**
+     * Gets town.
+     *
+     * @return the town
+     */
     public String getTown() {
         return town;
     }
 
+    /**
+     * Sets town.
+     *
+     * @param town the town
+     */
     public void setTown(String town) {
         this.town = town;
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

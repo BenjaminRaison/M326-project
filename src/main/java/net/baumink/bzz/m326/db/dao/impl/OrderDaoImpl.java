@@ -14,6 +14,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Order dao.
+ *  @author Benjamin Raison, Jonas Gredig
+ *  @version 1.0
+ */
 public class OrderDaoImpl implements IOrderDao {
 
     private Connection connection;

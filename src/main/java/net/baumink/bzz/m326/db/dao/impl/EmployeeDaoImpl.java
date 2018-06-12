@@ -11,10 +11,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Employee dao.
+ *  @author Benjamin Raison, Jonas Gredig
+ *  @version 1.0
+ */
 public class EmployeeDaoImpl implements IEmployeeDao {
 
     private Connection connection;
 
+    /**
+     * Instantiates a new Employee dao.
+     *
+     * @param connection the connection
+     */
     public EmployeeDaoImpl(Connection connection) {
         this.connection = connection;
     }

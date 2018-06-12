@@ -11,12 +11,23 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Order status dao.
+ *  @author Benjamin Raison, Jonas Gredig
+ *  @version 1.0
+ */
 public class OrderStatusDaoImpl implements IOrderStatusDao {
 
     private Connection connection;
     private ZoneOffset offset = ZoneOffset.of("Europe/Zurich");
     private IOrderDao orderDao;
 
+    /**
+     * Instantiates a new Order status dao.
+     *
+     * @param connection the connection
+     * @param orderDao   the order dao
+     */
     public OrderStatusDaoImpl(Connection connection, IOrderDao orderDao) {
         this.connection = connection;
         this.orderDao = orderDao;

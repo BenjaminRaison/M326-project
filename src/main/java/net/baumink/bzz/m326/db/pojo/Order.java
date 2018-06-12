@@ -1,5 +1,10 @@
 package net.baumink.bzz.m326.db.pojo;
 
+/**
+ * The type Order.
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
+ */
 public class Order {
 
     private String id;
@@ -7,12 +12,27 @@ public class Order {
     private OrderStatus status;
     private Employee employee;
 
+    /**
+     * Instantiates a new Order.
+     *
+     * @param client   the client
+     * @param status   the status
+     * @param employee the employee
+     */
     public Order(Client client, OrderStatus status, Employee employee) {
         this.client = client;
         this.status = status;
         this.employee = employee;
     }
 
+    /**
+     * Instantiates a new Order.
+     *
+     * @param id       the id
+     * @param client   the client
+     * @param status   the status
+     * @param employee the employee
+     */
     public Order(String id, Client client, OrderStatus status, Employee employee) {
         this.id = id;
         this.client = client;
@@ -20,34 +40,74 @@ public class Order {
         this.employee = employee;
     }
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Gets client.
+     *
+     * @return the client
+     */
     public Client getClient() {
         return client;
     }
 
+    /**
+     * Sets client.
+     *
+     * @param client the client
+     */
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /**
+     * Gets status.
+     *
+     * @return the status
+     */
     public OrderStatus getStatus() {
         return status;
     }
 
+    /**
+     * Sets status.
+     *
+     * @param status the status
+     */
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
+    /**
+     * Gets employee.
+     *
+     * @return the employee
+     */
     public Employee getEmployee() {
         return employee;
     }
 
+    /**
+     * Sets employee.
+     *
+     * @param employee the employee
+     */
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
