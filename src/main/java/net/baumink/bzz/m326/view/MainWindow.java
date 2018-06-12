@@ -6,69 +6,56 @@ import net.baumink.bzz.m326.db.pojo.Employee;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class MainWindow extends JFrame {
 
-    private JPanel contentPane = new JPanel();
+    private static final String[] DEPARTMENTS = {"Lager", "Vertrieb", "Lieferant"};
+    private final JComboBox<Employee> comboEmployee;
+    private final JComboBox<String> comboDepartment;
+
+    private final EmployeeDaoImpl employeeDao;
+    private final TablePanel tablePanel;
 
     public MainWindow() {
         super();
+
+        employeeDao = new EmployeeDaoImpl(DBConnection.getConnection());
+
         setTitle("M236");
         setLayout(new FlowLayout());
         setSize(new Dimension(800, 500));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel functionalityPanel = new JPanel();
+        JPanel panelComboBoxes = new JPanel(); // TODO: Rename
 
-        EmployeeDaoImpl employeeDao = new EmployeeDaoImpl(DBConnection.getConnection());
         java.util.List<Employee> list = employeeDao.getAll();
 
         Employee[] employees = new Employee[list.size()];
         employees = list.toArray(employees);
-        String[] departments = {"Lager", "Vertrieb", "Lieferant"};
 
-        JComboBox<Employee> employeeBox = new JComboBox<>(employees);
-        JComboBox<String> departmentBox = new JComboBox<>(departments);
+        comboEmployee = new JComboBox<>(employees);
+        comboDepartment = new JComboBox<>(DEPARTMENTS);
 
-        functionalityPanel.add(employeeBox);
-        functionalityPanel.add(departmentBox);
-        add(functionalityPanel);
-        add(contentPane);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        comboEmployee.addActionListener(e -> updateData());
+        comboDepartment.addActionListener(e -> updateData());
+
+        tablePanel = new TablePanel();
+
+        panelComboBoxes.add(comboEmployee);
+        panelComboBoxes.add(comboDepartment);
+
+        add(panelComboBoxes);
+        add(tablePanel);
+
         setVisible(true);
-
-
-        employeeBox.addActionListener (new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selectedItem = employeeBox.getSelectedItem().toString();
-            }
-        });
-
-        departmentBox.addActionListener (new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selectedItem = departmentBox.getSelectedItem().toString();
-            }
-        });
     }
 
-    public void switchPanel(Views viewEnum) {
-        this.contentPane.removeAll();
-        switch (viewEnum) {
-            case Lager:
-                //this.contentPane.add(...);
-                break;
-            case Vertrieb:
-                //this.contentPane.add(...);
-                break;
-
-            case Lieferant:
-                //this.contentPane.add(...);
-                break;
-
-        }
-        this.revalidate();
-        this.repaint();
+    private void updateData() {
+        tablePanel.updateData(
+                (String) comboDepartment.getSelectedItem(),
+                (Employee) comboEmployee.getSelectedItem());
     }
+
 }

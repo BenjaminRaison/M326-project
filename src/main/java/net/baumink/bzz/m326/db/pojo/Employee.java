@@ -63,6 +63,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return getFirstName() + " " + getSurname();
+        return firstName + surname;
     }
 }
