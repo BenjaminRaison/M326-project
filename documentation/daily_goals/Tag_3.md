@@ -1,9 +1,10 @@
-# Tagesziele vom Tag XXX
+# Tagesziele vom Tag 3
 
 ## Ziele
 
-* 
-*
+* JFrame fertig
+* Create Order Dialog fertig
+* Anfangen mit anderen GUIs
 
 ## Tagebuch Jonas
 ### Tätigkeiten

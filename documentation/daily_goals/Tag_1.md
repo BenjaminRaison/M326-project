@@ -1,14 +1,10 @@
-# Tagesziel vom Tag 1
+# Tagesziele vom Tag 1
 
-## Ziel
-```
+## Ziele
 
 * Projekt aufsetzen
 * 5 use cases definieren
 * Klassendiagramm in der Dokumentation
-
-```
-
 
 ## Tagebuch Jonas
 ### Tätigkeiten
