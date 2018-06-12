@@ -1,5 +1,7 @@
 package net.baumink.bzz.m326;
 
+import net.baumink.bzz.m326.view.MainWindow;
+
 import javax.swing.*;
 
 public class Launcher {
@@ -10,5 +12,7 @@ public class Launcher {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, e.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
         });
+
+        JFrame mainWindow = new MainWindow();
     }
 }
