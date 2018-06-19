@@ -8,7 +8,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>net.baumink.bzz.m326.db.pojo.Item</class>
         <class>net.baumink.bzz.m326.db.pojo.Employee</class>
-        <class>net.baumink.bzz.m326.db.pojo.Order</class>
+        <class>net.baumink.bzz.m326.db.pojo.CSOrder</class>
         <class>net.baumink.bzz.m326.db.pojo.Client</class>
 
         <properties>

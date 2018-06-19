@@ -6,12 +6,17 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+/**
+ * CoolShoes order
+ */
 @Entity
-public class Order {
+public class CSOrder {
 
     @Id
     @GeneratedValue
-    private String id;
+    private Integer id;
+    @Column(unique = true, nullable = false)
+    private String orderNumber;
     @ManyToOne
     private Client client;
     @ManyToOne
@@ -22,11 +27,12 @@ public class Order {
     @ManyToMany
     private List<Item> items;
 
-    public Order() {
+    public CSOrder() {
         // default constructor
     }
 
-    public Order(Client client, Employee lastEditor, ZonedDateTime lastEdited, ZonedDateTime deliveryExpected, Status status, List<Item> items) {
+    public CSOrder(String orderNumber, Client client, Employee lastEditor, ZonedDateTime lastEdited, ZonedDateTime deliveryExpected, Status status, List<Item> items) {
+        this.orderNumber = orderNumber;
         this.client = client;
         this.lastEditor = lastEditor;
         this.lastEdited = lastEdited;
@@ -35,8 +41,9 @@ public class Order {
         this.items = items;
     }
 
-    public Order(String id, Client client, Employee lastEditor, ZonedDateTime lastEdited, ZonedDateTime deliveryExpected, Status status, List<Item> items) {
+    public CSOrder(int id, String orderNumber, Client client, Employee lastEditor, ZonedDateTime lastEdited, ZonedDateTime deliveryExpected, Status status, List<Item> items) {
         this.id = id;
+        this.orderNumber = orderNumber;
         this.client = client;
         this.lastEditor = lastEditor;
         this.lastEdited = lastEdited;
@@ -45,12 +52,20 @@ public class Order {
         this.items = items;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Client getClient() {
@@ -106,9 +121,10 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Order order = (Order) o;
+        CSOrder order = (CSOrder) o;
 
         if (id != null ? !id.equals(order.id) : order.id != null) return false;
+        if (orderNumber != null ? !orderNumber.equals(order.orderNumber) : order.orderNumber != null) return false;
         if (client != null ? !client.equals(order.client) : order.client != null) return false;
         if (lastEditor != null ? !lastEditor.equals(order.lastEditor) : order.lastEditor != null) return false;
         if (lastEdited != null ? !lastEdited.equals(order.lastEdited) : order.lastEdited != null) return false;
@@ -121,6 +137,7 @@ public class Order {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (orderNumber != null ? orderNumber.hashCode() : 0);
         result = 31 * result + (client != null ? client.hashCode() : 0);
         result = 31 * result + (lastEditor != null ? lastEditor.hashCode() : 0);
         result = 31 * result + (lastEdited != null ? lastEdited.hashCode() : 0);
