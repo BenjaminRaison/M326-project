@@ -1,13 +1,12 @@
 package net.baumink.bzz.m326.view;
 
-import net.baumink.bzz.m326.db.DBConnection;
-import net.baumink.bzz.m326.db.dao.impl.EmployeeDaoImpl;
 import net.baumink.bzz.m326.db.pojo.Employee;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Vector;
+import java.util.ArrayList;
 
 
 public class MainWindow extends JFrame {
@@ -15,12 +14,10 @@ public class MainWindow extends JFrame {
     private static final String[] DEPARTMENTS = {"Lager", "Vertrieb", "Lieferant"};
     private final JComboBox<Employee> comboEmployee;
 
-    private final EmployeeDaoImpl employeeDao;
     private JTable table;
     public MainWindow() {
         super();
 
-        employeeDao = new EmployeeDaoImpl(DBConnection.getConnection());
 
         setTitle("M236");
         setLayout(new BorderLayout());
@@ -34,7 +31,7 @@ public class MainWindow extends JFrame {
         panelComboBoxes.setLayout(layoutComboBoxes);
 
 
-        java.util.List<Employee> list = employeeDao.getAll();
+        java.util.List<Employee> list = new ArrayList<>();// FIXME employeeDao.getAllEmployees();
 
         Employee[] employees = new Employee[list.size()];
         employees = list.toArray(employees);
