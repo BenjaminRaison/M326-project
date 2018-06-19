@@ -1,4 +1,4 @@
-package net.baumink.bzz.m326;
+package net.baumink.bzz.m326.db;
 
 public enum Status {
     BESTELLT("Auftrag bestellt"), AUFBEREITEN("Auftrag aufbereiten"), TEILAUFTRAG_VERSPÄTET("Teilauftrag verspätet"),

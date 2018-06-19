@@ -12,9 +12,10 @@ repositories {
 }
 
 dependencies {
-    compile group: 'net.sf.ucanaccess', name: 'ucanaccess', version: '4.0.4'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.16.Final'
 
-    testCompile group: 'org.h2database', name: 'h2database', version: '1.0.20061217'
+
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.2.0'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.2.0'
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.2.0'
