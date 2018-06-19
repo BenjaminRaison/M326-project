@@ -1,31 +1,42 @@
 package net.baumink.bzz.m326.db.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Client {
 
+    @Id
+    @GeneratedValue
     private int id;
     private String surname;
     private String firstName;
-    private String adress;
+    private String address;
     private String postcode;
     private String town;
     private String email;
     private String password;
 
-    public Client(String surname, String firstName, String adress, String postcode, String town, String email, String password) {
+    public Client() {
+        // default constructor
+    }
+
+    public Client(String surname, String firstName, String address, String postcode, String town, String email, String password) {
         this.surname = surname;
         this.firstName = firstName;
-        this.adress = adress;
+        this.address = address;
         this.postcode = postcode;
         this.town = town;
         this.email = email;
         this.password = password;
     }
 
-    public Client(int id, String surname, String firstName, String adress, String postcode, String town, String email, String password) {
+    public Client(int id, String surname, String firstName, String address, String postcode, String town, String email, String password) {
         this.id = id;
         this.surname = surname;
         this.firstName = firstName;
-        this.adress = adress;
+        this.address = address;
         this.postcode = postcode;
         this.town = town;
         this.email = email;
@@ -56,12 +67,12 @@ public class Client {
         this.firstName = firstName;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPostcode() {
@@ -106,7 +117,7 @@ public class Client {
         if (id != client.id) return false;
         if (surname != null ? !surname.equals(client.surname) : client.surname != null) return false;
         if (firstName != null ? !firstName.equals(client.firstName) : client.firstName != null) return false;
-        if (adress != null ? !adress.equals(client.adress) : client.adress != null) return false;
+        if (address != null ? !address.equals(client.address) : client.address != null) return false;
         if (postcode != null ? !postcode.equals(client.postcode) : client.postcode != null) return false;
         if (town != null ? !town.equals(client.town) : client.town != null) return false;
         if (email != null ? !email.equals(client.email) : client.email != null) return false;
@@ -118,7 +129,7 @@ public class Client {
         int result = id;
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (adress != null ? adress.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (postcode != null ? postcode.hashCode() : 0);
         result = 31 * result + (town != null ? town.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
@@ -132,7 +143,7 @@ public class Client {
                 "id=" + id +
                 ", surname='" + surname + '\'' +
                 ", firstName='" + firstName + '\'' +
-                ", adress='" + adress + '\'' +
+                ", address='" + address + '\'' +
                 ", postcode='" + postcode + '\'' +
                 ", town='" + town + '\'' +
                 ", email='" + email + '\'' +

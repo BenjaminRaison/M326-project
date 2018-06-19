@@ -1,20 +1,35 @@
 package net.baumink.bzz.m326.db.pojo;
 
+import net.baumink.bzz.m326.db.EmployeeType;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Employee {
 
+    @Id
+    @GeneratedValue
     private int id;
     private String firstName;
     private String surname;
+    private EmployeeType type;
 
-    public Employee(String firstName, String surname) {
-        this.firstName = firstName;
-        this.surname = surname;
+    public Employee() {
     }
 
-    public Employee(int id, String firstName, String surname) {
+    public Employee(String firstName, String surname, EmployeeType type) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.type = type;
+    }
+
+    public Employee(int id, String firstName, String surname, EmployeeType type) {
         this.id = id;
         this.firstName = firstName;
         this.surname = surname;
+        this.type = type;
     }
 
     public int getId() {
@@ -41,6 +56,14 @@ public class Employee {
         this.surname = surname;
     }
 
+    public EmployeeType getType() {
+        return type;
+    }
+
+    public void setType(EmployeeType type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,7 +73,8 @@ public class Employee {
 
         if (id != employee.id) return false;
         if (firstName != null ? !firstName.equals(employee.firstName) : employee.firstName != null) return false;
-        return surname != null ? surname.equals(employee.surname) : employee.surname == null;
+        if (surname != null ? !surname.equals(employee.surname) : employee.surname != null) return false;
+        return type == employee.type;
     }
 
     @Override
@@ -58,11 +82,12 @@ public class Employee {
         int result = id;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return firstName + surname;
+        return String.format("%s %s [%s]", firstName, surname, type.getValue());
     }
 }
