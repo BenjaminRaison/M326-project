@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -77,4 +78,26 @@ class DBTest {
         entityManager.close();
     }
 
+    @Test
+    void test_DB_insert_order_with_dependencies() {
+        Item item = new Item("Test item", "Superduper testitem 2.0 with AI", new BigDecimal("123.45"));
+        Employee employee = new Employee("Jonas", "Gredig", EmployeeType.LIEFERANT);
+        Client client = new Client("Raison", "Benjamin", "some place", "SJBM",
+                "MyTown", "benji@raison.local", "imagethisisahash");
+        CSOrder order = new CSOrder("123", client, employee, ZonedDateTime.now(), ZonedDateTime.now(), Status.AUFBEREITEN, Collections.singletonList(item));
+        EntityManager entityManager = DBConnection.getEntityManager();
+        entityManager.getTransaction().begin();
+
+        entityManager.persist(item);
+        entityManager.persist(employee);
+        entityManager.persist(client);
+        entityManager.persist(order);
+        entityManager.getTransaction().commit();
+
+        assertEquals(1, entityManager.createQuery("select o from CSOrder o").getResultList().size());
+
+        entityManager.close();
+
+
+    }
 }
