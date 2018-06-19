@@ -23,11 +23,16 @@ Ich habe doch länger gebraucht als geplant.
 ### Fazit
 Bei der GUI braucht man doch länger als geplant, ich sollte beim nächstem Mal direkt mehr Zeit einplanen
 
-## Tagebuch Bönji
+## Tagebuch Benji
 ### Tätigkeiten
+ich habe mit einem CreateOrder Dialog angefangen, habe nachher aber gemerkt, dass wir das eigentlich nicht brauchen.
+Auch haben wir uns dazu entschlossen, das Projekt etwas auszubauen.
 
 ### Soll-Ist-Vergleich
+Meine Ziele wurden _nicht_ erreicht, weil sie nicht nötig waren.
 
 ### Erkenntnisse
+Ich sollte mir besser überlegen, ob Teilaufgaben nötig sind.
 
 ### Fazit
+Siehe Erkenntnisse.
