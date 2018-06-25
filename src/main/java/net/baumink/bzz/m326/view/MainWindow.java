@@ -20,7 +20,7 @@ public class MainWindow extends JFrame {
 
 
         setTitle("M236");
-        setLayout(new FlowLayout());
+        setLayout(new BorderLayout());
         setSize(new Dimension(800, 500));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -34,7 +34,6 @@ public class MainWindow extends JFrame {
         comboEmployee = new JComboBox<>(employees);
         comboDepartment = new JComboBox<>(DEPARTMENTS);
 
-
         comboEmployee.addActionListener(e -> updateData());
         comboDepartment.addActionListener(e -> updateData());
 
@@ -43,8 +42,8 @@ public class MainWindow extends JFrame {
         panelComboBoxes.add(comboEmployee);
         panelComboBoxes.add(comboDepartment);
 
-        add(panelComboBoxes);
-        add(tablePanel);
+        add(panelComboBoxes, BorderLayout.NORTH);
+        add(tablePanel, BorderLayout.CENTER);
 
         setVisible(true);
     }
