@@ -17,6 +17,17 @@ public class Launcher {
      * @param args the input arguments
      */
     public static void main(String[] args) {
+        setupErrorHandling();
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            System.err.println("Failed to set look and feel!" + e.getMessage());
+        }
+        new MainWindow();
+    }
+
+    private static void setupErrorHandling() {
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
             e.printStackTrace();
             String message = e.getMessage();
@@ -25,13 +36,5 @@ public class Launcher {
             }
             JOptionPane.showMessageDialog(null, message, "Fehler", JOptionPane.ERROR_MESSAGE);
         });
-
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
-            System.err.println("Failed to set look and theme!" + e.getMessage());
-        }
-
-        new MainWindow();
     }
 }
