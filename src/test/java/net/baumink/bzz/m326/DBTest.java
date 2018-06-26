@@ -1,6 +1,5 @@
 package net.baumink.bzz.m326;
 
-import net.baumink.bzz.m326.db.DBConnection;
 import net.baumink.bzz.m326.db.EmployeeType;
 import net.baumink.bzz.m326.db.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
@@ -25,7 +24,7 @@ class DBTest {
 
     @BeforeEach
     void init() {
-        entityManager = DBConnection.getEntityManager();
+        entityManager = InmemDBConnection.getEntityManager();
     }
 
     @AfterEach
@@ -42,8 +41,6 @@ class DBTest {
         entityManager.getTransaction().commit();
 
         assertEquals(1, entityManager.createQuery("select t from Item t").getResultList().size());
-
-        entityManager.close();
     }
 
     @Test
@@ -54,8 +51,6 @@ class DBTest {
         entityManager.getTransaction().commit();
 
         assertEquals(1, entityManager.createQuery("select e from Employee e").getResultList().size());
-
-        entityManager.close();
     }
 
     @Test
@@ -67,8 +62,6 @@ class DBTest {
         entityManager.getTransaction().commit();
 
         assertEquals(1, entityManager.createQuery("select c from Client c").getResultList().size());
-
-        entityManager.close();
     }
 
     @Test
@@ -79,8 +72,6 @@ class DBTest {
         entityManager.getTransaction().commit();
 
         assertEquals(1, entityManager.createQuery("select o from CSOrder o").getResultList().size());
-
-        entityManager.close();
     }
 
     @Test
@@ -99,9 +90,5 @@ class DBTest {
         entityManager.getTransaction().commit();
 
         assertEquals(1, entityManager.createQuery("select o from CSOrder o").getResultList().size());
-
-        entityManager.close();
-
-
     }
 }
