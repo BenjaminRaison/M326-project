@@ -1,23 +1,20 @@
 package net.baumink.bzz.m326.view;
 
 import net.baumink.bzz.m326.controller.TableController;
+import net.baumink.bzz.m326.db.DBConnection;
 import net.baumink.bzz.m326.db.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
-import net.baumink.bzz.m326.db.DBConnection;
 import net.baumink.bzz.m326.db.pojo.Employee;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.Vector;
 
 
 public class MainWindow extends JFrame {
 
-    private static final String[] DEPARTMENTS = {"Lager", "Vertrieb", "Lieferant"};
     private final JComboBox<Employee> comboEmployee;
     private TableController tableController;
     private JTable table;
@@ -30,6 +27,7 @@ public class MainWindow extends JFrame {
         setTitle("M236");
         setLayout(new BorderLayout());
         setSize(new Dimension(800, 500));
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
@@ -59,7 +57,7 @@ public class MainWindow extends JFrame {
         modelTable = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column == 2 || column == 3 ) {
+                if (column == 2 || column == 3) {
                     return true;
                 } else {
                     return false;
@@ -91,31 +89,35 @@ public class MainWindow extends JFrame {
         java.util.List<CSOrder> allOrders = tableController.getTableData();
         int row = 0;
         int column = 0;
-        JComboBox stati = new JComboBox();
-        stati.addItem(Status.BESTELLT);
-        stati.addItem(Status.VERSANDBEREIT);
-        stati.addItem(Status.AUFBEREITEN);
-        stati.addItem(Status.ABGEHOLT);
-        stati.addItem(Status.GELIEFERT);
-        stati.addItem(Status.TEILAUFTRAG_VERSPÄTET);
+        JComboBox<Status> comboStatus = new JComboBox<>();
+        comboStatus.addItem(Status.BESTELLT);
+        comboStatus.addItem(Status.VERSANDBEREIT);
+        comboStatus.addItem(Status.AUFBEREITEN);
+        comboStatus.addItem(Status.ABGEHOLT);
+        comboStatus.addItem(Status.GELIEFERT);
+        comboStatus.addItem(Status.TEILAUFTRAG_VERSPÄTET);
+
+
+        TableColumn columnStatus = table.getColumnModel().getColumn(2);
+        columnStatus.setCellEditor(new DefaultCellEditor(comboStatus));
+
+        TableColumn columnDeliveryExpected = table.getColumnModel().getColumn(3);
+        columnDeliveryExpected.setCellRenderer(new DateCellRenderer("dd-MM-yyyy"));
+
+        TableColumn columnLastEdited = table.getColumnModel().getColumn(5);
+        columnLastEdited.setCellRenderer(new DateCellRenderer("dd-MM-yyyy hh:mm"));
 
         modelTable.setRowCount(allOrders.size());
         for (CSOrder order : allOrders) {
             modelTable.setValueAt(order.getOrderNumber(), row, column++);
-            modelTable.setValueAt(order.getClient().getId(), row, column++);
-
-            stati.setSelectedItem(order.getStatus());
-            TableColumn statusColumn = table.getColumnModel().getColumn(2);
-            statusColumn.setCellEditor(new DefaultCellEditor(stati));
-
+            modelTable.setValueAt(order.getClient().toString(), row, column++);
             modelTable.setValueAt(order.getStatus(), row, column++);
             modelTable.setValueAt(order.getDeliveryExpected(), row, column++);
-
             modelTable.setValueAt(order.getLastEditor(), row, column++);
             modelTable.setValueAt(order.getLastEdited(), row, column);
-
             column = 0;
             row++;
         }
     }
 }
+
