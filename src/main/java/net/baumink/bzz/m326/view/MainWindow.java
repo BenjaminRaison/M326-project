@@ -1,10 +1,16 @@
 package net.baumink.bzz.m326.view;
 
+import net.baumink.bzz.m326.controller.TableController;
+import net.baumink.bzz.m326.db.Status;
+import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.DBConnection;
 import net.baumink.bzz.m326.db.pojo.Employee;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.Vector;
 
@@ -13,11 +19,13 @@ public class MainWindow extends JFrame {
 
     private static final String[] DEPARTMENTS = {"Lager", "Vertrieb", "Lieferant"};
     private final JComboBox<Employee> comboEmployee;
-
+    private TableController tableController;
     private JTable table;
+    private DefaultTableModel modelTable;
+
     public MainWindow() {
         super();
-
+        tableController = new TableController();
 
         setTitle("M236");
         setLayout(new BorderLayout());
@@ -40,16 +48,30 @@ public class MainWindow extends JFrame {
         comboEmployee = new JComboBox<>(employees);
 
         Vector<String> headerColumn = new Vector<>();
-        headerColumn.addElement("ID");
+        headerColumn.addElement("Order Number");
         headerColumn.addElement("Client");
         headerColumn.addElement("Status");
-        headerColumn.addElement("Delivery planned");
-        headerColumn.addElement("Last Edited by");
-        headerColumn.addElement("");
+        headerColumn.addElement("Delivery Expected");
+        headerColumn.addElement("Last Editor");
+        headerColumn.addElement("Last Edited");
+        headerColumn.addElement(""); // Empty Header -> Column for buttons
 
-        DefaultTableModel modelTable = new DefaultTableModel(2, 2);
+        modelTable = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column == 2 || column == 3 ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+
         modelTable.setColumnIdentifiers(headerColumn);
+
         table = new JTable(modelTable);
+        updateData();
+
 
         panelComboBoxes.add(comboEmployee);
         add(panelComboBoxes, BorderLayout.NORTH);
@@ -62,7 +84,38 @@ public class MainWindow extends JFrame {
     }
 
     private void updateData() {
-        //TODO
+        updateTable();
     }
 
+    private void updateTable() {
+        java.util.List<CSOrder> allOrders = tableController.getTableData();
+        int row = 0;
+        int column = 0;
+        JComboBox stati = new JComboBox();
+        stati.addItem(Status.BESTELLT);
+        stati.addItem(Status.VERSANDBEREIT);
+        stati.addItem(Status.AUFBEREITEN);
+        stati.addItem(Status.ABGEHOLT);
+        stati.addItem(Status.GELIEFERT);
+        stati.addItem(Status.TEILAUFTRAG_VERSPÄTET);
+
+        modelTable.setRowCount(allOrders.size());
+        for (CSOrder order : allOrders) {
+            modelTable.setValueAt(order.getOrderNumber(), row, column++);
+            modelTable.setValueAt(order.getClient().getId(), row, column++);
+
+            stati.setSelectedItem(order.getStatus());
+            TableColumn statusColumn = table.getColumnModel().getColumn(2);
+            statusColumn.setCellEditor(new DefaultCellEditor(stati));
+
+            modelTable.setValueAt(order.getStatus(), row, column++);
+            modelTable.setValueAt(order.getDeliveryExpected(), row, column++);
+
+            modelTable.setValueAt(order.getLastEditor(), row, column++);
+            modelTable.setValueAt(order.getLastEdited(), row, column);
+
+            column = 0;
+            row++;
+        }
+    }
 }
