@@ -25,6 +25,7 @@ class DBTest {
     @BeforeEach
     void init() {
         entityManager = InmemDBConnection.getEntityManager();
+        System.out.println(entityManager.createQuery("select t from Item t").getResultList().size());
     }
 
     @AfterEach
