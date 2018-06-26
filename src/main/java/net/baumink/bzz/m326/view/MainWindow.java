@@ -1,12 +1,12 @@
 package net.baumink.bzz.m326.view;
 
+import net.baumink.bzz.m326.db.DBConnection;
 import net.baumink.bzz.m326.db.pojo.Employee;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Vector;
-import java.util.ArrayList;
 
 
 public class MainWindow extends JFrame {
@@ -31,7 +31,8 @@ public class MainWindow extends JFrame {
         panelComboBoxes.setLayout(layoutComboBoxes);
 
 
-        java.util.List<Employee> list = new ArrayList<>();// FIXME employeeDao.getAllEmployees();
+        java.util.List<Employee> list = (java.util.List<Employee>) DBConnection.getEntityManager().createQuery("select o from Employee o").getResultList();
+
 
         Employee[] employees = new Employee[list.size()];
         employees = list.toArray(employees);

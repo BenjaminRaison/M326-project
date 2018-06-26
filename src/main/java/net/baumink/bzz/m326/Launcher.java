@@ -35,7 +35,7 @@ public class Launcher {
         } catch (UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             System.err.println("Failed to set look and feel!" + e.getMessage());
         }
-        insertTestData();
+//        insertTestData();
         new MainWindow();
     }
 
@@ -71,6 +71,7 @@ public class Launcher {
                 message = e.getClass().getCanonicalName();
             }
             JOptionPane.showMessageDialog(null, message, "Fehler", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         });
     }
 }
