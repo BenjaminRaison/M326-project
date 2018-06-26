@@ -39,7 +39,7 @@ public class MainWindow extends JFrame {
         panelComboBoxes.setLayout(layoutComboBoxes);
 
 
-        java.util.List<Employee> list = (java.util.List<Employee>) DBConnection.getEntityManager().createQuery("select o from Employee o").getResultList();
+        java.util.List<Employee> list = tableController.getAllEmployees();
 
 
         Employee[] employees = new Employee[list.size()];
