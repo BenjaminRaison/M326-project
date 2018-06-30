@@ -1,6 +1,6 @@
 package net.baumink.bzz.m326;
 
-import net.baumink.bzz.m326.view.MainWindow;
+import net.baumink.bzz.m326.ui.view.MainWindow;
 
 import javax.swing.*;
 

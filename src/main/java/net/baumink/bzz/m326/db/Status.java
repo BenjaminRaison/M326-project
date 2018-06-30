@@ -5,11 +5,12 @@ package net.baumink.bzz.m326.db;
  * @version 1.0
  */
 public enum Status {
-    BESTELLT("Auftrag bestellt"), AUFBEREITEN("Auftrag aufbereiten"),
+    BESTELLT("Auftrag bestellt"),
     TEILAUFTRAG_VERSPÄTET("Teilauftrag verspätet"),
+    AUFBEREITET("Auftrag aufbereitet"),
     VERSANDBEREIT("Auftrag versandbereit"),
-    ABGEHOLT("Auftrag abgehohlt"),
-    GELIEFERT("Auftrag geliefert");
+    GELIEFERT("Auftrag geliefert"),
+    ABGEHOLT("Auftrag abgehohlt");
 
     private String value;
 

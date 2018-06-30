@@ -67,7 +67,7 @@ class DBTest {
 
     @Test
     void test_DB_insert_order_null_dependencies() {
-        CSOrder order = new CSOrder("123", null, null, ZonedDateTime.now(), ZonedDateTime.now(), Status.AUFBEREITEN, new ArrayList<>());
+        CSOrder order = new CSOrder("123", null, null, ZonedDateTime.now(), ZonedDateTime.now(), Status.AUFBEREITET, new ArrayList<>());
         entityManager.getTransaction().begin();
         entityManager.persist(order);
         entityManager.getTransaction().commit();
@@ -81,7 +81,7 @@ class DBTest {
         Employee employee = new Employee("Jonas", "Gredig", EmployeeType.LIEFERANT);
         Client client = new Client("Raison", "Benjamin", "some place", "SJBM",
                 "MyTown", "benji@raison.local", "imagethisisahash");
-        CSOrder order = new CSOrder("123", client, employee, ZonedDateTime.now(), ZonedDateTime.now(), Status.AUFBEREITEN, Collections.singletonList(item));
+        CSOrder order = new CSOrder("123", client, employee, ZonedDateTime.now(), ZonedDateTime.now(), Status.AUFBEREITET, Collections.singletonList(item));
         entityManager.getTransaction().begin();
 
         entityManager.persist(item);

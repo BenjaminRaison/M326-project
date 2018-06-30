@@ -1,4 +1,4 @@
-package net.baumink.bzz.m326.view;
+package net.baumink.bzz.m326.ui.view;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
