@@ -4,10 +4,14 @@ import net.baumink.bzz.m326.db.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.pojo.Employee;
 import net.baumink.bzz.m326.ui.controller.TableController;
+import net.baumink.bzz.m326.ui.view.util.ComponentCellRenderer;
+import net.baumink.bzz.m326.ui.view.util.DateCellRenderer;
+import net.baumink.bzz.m326.ui.view.util.TableMouseListener;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.Vector;
 
@@ -65,7 +69,7 @@ public class MainWindow extends JFrame {
         headerColumn.addElement("Lieferung");
         headerColumn.addElement("Zuletzt bearbeitet");
         headerColumn.addElement("Zuletzt bearbeitet von");
-        headerColumn.addElement(""); // Empty Header -> Column for buttons
+        headerColumn.addElement("Details"); // Empty Header -> Column for buttons
 
         tableModel = new DefaultTableModel() {
             @Override
@@ -77,6 +81,18 @@ public class MainWindow extends JFrame {
         tableModel.setColumnIdentifiers(headerColumn);
 
         table = new JTable(tableModel);
+        table.setFillsViewportHeight(true);
+
+        table.setAutoCreateRowSorter(true);
+        TableRowSorter sorter = (TableRowSorter) table.getRowSorter();
+        sorter.setSortable(6, false);
+
+        table.addMouseListener(new TableMouseListener(table, 6, (event, row) -> {
+            String orderNr = table.getValueAt(row, 0).toString();
+            CSOrder order = tableController.getOrderByOrderNumber(orderNr);
+            new DialogItems(order);
+        }));
+
         updateData();
 
         table.getModel().addTableModelListener(tableModelEvent -> {
@@ -106,7 +122,10 @@ public class MainWindow extends JFrame {
         TableColumn columnLastEdited = table.getColumnModel().getColumn(5);
         columnLastEdited.setCellRenderer(new DateCellRenderer("dd-MM-yyyy hh:mm"));
 
+        table.getColumnModel().getColumn(6).setCellRenderer(new ComponentCellRenderer());
+
         tableModel.setRowCount(orders.size());
+
 
         int row = 0;
         int column = 0;
@@ -116,7 +135,8 @@ public class MainWindow extends JFrame {
             tableModel.setValueAt(order.getStatus(), row, column++);
             tableModel.setValueAt(order.getDeliveryExpected(), row, column++);
             tableModel.setValueAt(order.getLastEditor(), row, column++);
-            tableModel.setValueAt(order.getLastEdited(), row, column);
+            tableModel.setValueAt(order.getLastEdited(), row, column++);
+            tableModel.setValueAt(new JButton("Details"), row, column++);
             column = 0;
             row++;
         }

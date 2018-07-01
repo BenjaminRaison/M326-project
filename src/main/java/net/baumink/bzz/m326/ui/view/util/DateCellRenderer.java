@@ -1,4 +1,4 @@
-package net.baumink.bzz.m326.ui.view;
+package net.baumink.bzz.m326.ui.view.util;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -9,12 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
-class DateCellRenderer extends DefaultTableCellRenderer {
+public class DateCellRenderer extends DefaultTableCellRenderer {
 
     private SimpleDateFormat simpleDateFormat;
     private DateTimeFormatter dateTimeFormatter;
 
-    DateCellRenderer(String format) {
+    public DateCellRenderer(String format) {
         simpleDateFormat = new SimpleDateFormat(format);
         dateTimeFormatter = DateTimeFormatter.ofPattern(format, Locale.getDefault());
     }
