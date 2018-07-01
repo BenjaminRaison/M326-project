@@ -14,7 +14,14 @@ public class TableController {
 
     private Employee selectedEmployee;
 
-    private List<CSOrder> getTableData() {
+    /**
+     * Fetches all orders from the database.
+     * Pagination / lazy loading is not necessary for the amount of data present
+     * Package-private for testing purposes
+     *
+     * @return all orders
+     */
+    List<CSOrder> getTableData() {
         return DBConnection.getEntityManager().createQuery("select o from CSOrder o", CSOrder.class).getResultList();
     }
 
