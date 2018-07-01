@@ -4,6 +4,8 @@ import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.pojo.Item;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class DialogItems extends JDialog {
 
@@ -30,9 +32,16 @@ public class DialogItems extends JDialog {
                     item.getPrice()};
         }
 
-        JTable table = new JTable(data, new Object[]{"Name", "Beschreibung", "Preis"});
+        TableModel model = new DefaultTableModel(data, new Object[]{"Name", "Beschreibung", "Preis"}) {
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false;
+            }
+        };
+        JTable table = new JTable(model);
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);
+
         JScrollPane scrollPane = new JScrollPane(table);
 
         add(scrollPane);
