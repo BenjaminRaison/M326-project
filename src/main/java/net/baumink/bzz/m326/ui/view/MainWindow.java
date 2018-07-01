@@ -23,11 +23,7 @@ public class MainWindow extends JFrame {
         super();
         tableController = new TableController();
 
-        setTitle("M236");
-        setLayout(new BorderLayout());
-        setSize(new Dimension(800, 500));
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setupWindow();
 
 
         JPanel panelComboBoxes = new JPanel(); // TODO: Rename
@@ -38,32 +34,37 @@ public class MainWindow extends JFrame {
 
         java.util.List<Employee> list = tableController.getAllEmployees();
 
-
         Employee[] employees = new Employee[list.size()];
         employees = list.toArray(employees);
 
         comboEmployee = new JComboBox<>(employees);
+        comboEmployee.addActionListener(e -> updateData());
+        panelComboBoxes.add(comboEmployee);
 
         initTable();
 
-        panelComboBoxes.add(comboEmployee);
         add(panelComboBoxes, BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        comboEmployee.addActionListener(e -> updateData());
 
         setVisible(true);
     }
 
+    private void setupWindow() {
+        setTitle("M236");
+        setLayout(new BorderLayout());
+        setSize(new Dimension(800, 500));
+        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
     private void initTable() {
         Vector<String> headerColumn = new Vector<>();
-        headerColumn.addElement("Order Number");
-        headerColumn.addElement("Client");
+        headerColumn.addElement("Bestell-Nr.");
+        headerColumn.addElement("Kunde");
         headerColumn.addElement("Status");
-        headerColumn.addElement("Delivery Expected");
-        headerColumn.addElement("Last Editor");
-        headerColumn.addElement("Last Edited");
+        headerColumn.addElement("Lieferung");
+        headerColumn.addElement("Zuletzt bearbeitet");
+        headerColumn.addElement("Zuletzt bearbeitet von");
         headerColumn.addElement(""); // Empty Header -> Column for buttons
 
         tableModel = new DefaultTableModel() {
@@ -78,8 +79,8 @@ public class MainWindow extends JFrame {
         table = new JTable(tableModel);
         updateData();
 
-        table.getModel().addTableModelListener(e -> {
-            // TODO
+        table.getModel().addTableModelListener(tableModelEvent -> {
+
         });
     }
 
@@ -89,16 +90,12 @@ public class MainWindow extends JFrame {
         updateTable();
     }
 
-    private void updateTable() {
+    private void updateTable() { // TODO: Why are we creating a new combo box every update?
         java.util.List<CSOrder> orders = tableController.getFilteredData();
         JComboBox<Status> comboStatus = new JComboBox<>();
-        comboStatus.addItem(Status.BESTELLT);
-        comboStatus.addItem(Status.VERSANDBEREIT);
-        comboStatus.addItem(Status.AUFBEREITET);
-        comboStatus.addItem(Status.ABGEHOLT);
-        comboStatus.addItem(Status.GELIEFERT);
-        comboStatus.addItem(Status.TEILAUFTRAG_VERSPÄTET);
-
+        for (Status s : tableController.getAvailableStatuses()) {
+            comboStatus.addItem(s);
+        }
 
         TableColumn columnStatus = table.getColumnModel().getColumn(2);
         columnStatus.setCellEditor(new DefaultCellEditor(comboStatus));

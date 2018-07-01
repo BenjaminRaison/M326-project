@@ -18,6 +18,12 @@ public class TableController {
         return DBConnection.getEntityManager().createQuery("select o from CSOrder o", CSOrder.class).getResultList();
     }
 
+    public CSOrder getOrderByOrderNumber(String orderNumber) {
+        return DBConnection.getEntityManager().createQuery("select o from CSOrder o where orderNumber=:num", CSOrder.class).
+                setParameter("num", orderNumber).
+                getSingleResult();
+    }
+
     public List<Employee> getAllEmployees() {
         return DBConnection.getEntityManager().createQuery("select o from Employee o", Employee.class).getResultList();
     }
@@ -41,5 +47,29 @@ public class TableController {
 
     public void setSelectedEmployee(Employee selectedEmployee) {
         this.selectedEmployee = selectedEmployee;
+    }
+
+    /**
+     * @return a set of statuses the user can set on an order. Also includes the filter criteria (the visible statuses), so users can revert mistakes
+     */
+    public Set<Status> getAvailableStatuses() {
+        Set<Status> status = new HashSet<>();
+        switch (selectedEmployee.getType()) {
+            case VERTRIEB:
+                status.add(Status.BESTELLT);
+                status.add(Status.AUFBEREITET);
+                status.add(Status.TEILAUFTRAG_VERSPÄTET);
+                break;
+            case LAGER:
+                status.add(Status.AUFBEREITET);
+                status.add(Status.VERSANDBEREIT);
+                break;
+            case LIEFERANT:
+                status.add(Status.VERSANDBEREIT);
+                status.add(Status.ABGEHOLT);
+                status.add(Status.GELIEFERT);
+                break;
+        }
+        return status;
     }
 }
