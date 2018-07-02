@@ -46,6 +46,7 @@ class DialogSplitOrderTest {
 
     @BeforeAll
     static void init() {
+        if (System.getenv("travis").equals("ci")) return;
         dialog = new DialogSplitOrder(new CSOrder("1", null, null, null,
                 null, Status.BESTELLT, new ArrayList<>()), null);
         dialog.dispose();
