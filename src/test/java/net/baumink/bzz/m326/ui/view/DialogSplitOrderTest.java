@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Tag("it")
-@DisabledIfEnvironmentVariable(named = "travis", matches = "ci")
 class DialogSplitOrderTest {
 
     private static DialogSplitOrder dialog;
@@ -57,12 +56,14 @@ class DialogSplitOrderTest {
         DBConnection.getEntityManager().getTransaction().commit();
     }
 
+    @DisabledIfEnvironmentVariable(named = "travis", matches = "ci")
     @ParameterizedTest
     @MethodSource("next_order_number_arguments")
     void test_next_order_number(String input, String result) {
         assertEquals(result, dialog.getNextOrderNumber(input));
     }
 
+    @DisabledIfEnvironmentVariable(named = "travis", matches = "ci")
     @ParameterizedTest
     @MethodSource("next_order_number_arguments_fail")
     void test_next_order_number_fail(String input) {
