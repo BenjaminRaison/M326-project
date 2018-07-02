@@ -30,6 +30,10 @@ Ich habe die Datenbank korrekt umgebaut.
 
 ### Erkenntnisse
 JPA unterstützt keine Tabellennamen mit reservierten Schlüsselwörtern, MySQL SQL-Dialekt alllerdings schon.
+Ich muss vorsichtiger mit meinen Tabellennamen sein.
 
 ### Fazit
-Ich muss vorsichtiger mit meinen Tabellennamen sein.
+#### Das hat mich gefreut
+Ich habe es geschafft, die Datenbank zu migrieren.
+#### Das hat mich geärgert
+Die Probleme, welche ich mit JPA hatte, waren schwer zu debuggen. Die Fehlermeldungen hätten besser gewählt sein können.

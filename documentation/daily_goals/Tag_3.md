@@ -39,4 +39,8 @@ Meine Ziele wurden _nicht_ erreicht, weil sie nicht nötig waren.
 Ich sollte mir besser überlegen, ob Teilaufgaben nötig sind.
 
 ### Fazit
-Siehe Erkenntnisse.
+#### Das hat mich gefreut
+Ich konnte Jonas erfolgreich helfen.
+#### Das hat mich geärgert
+Ich habe angefangen, den oben genannten Dialog zu bauen, bevor ich gemerkt habe, dass er nicht nötig ist. 
+Die verschwendete Zeit nervt mich.

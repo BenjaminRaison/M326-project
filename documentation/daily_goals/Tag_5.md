@@ -29,10 +29,14 @@ Swing ist sehr mühsam was GUIs bauen anbelangt. Nächstes Mal lieber JavaFx ben
 * Jonas mit dem GUI helfen
 
 ### Soll-Ist-Vergleich
-Uns ist aufgefallen, dass der Dialog nicht nötig ist.
+Uns ist aufgefallen, dass der Dialog nicht nötig ist. Der Rest ist umgesetzt worden.
 
 ### Erkenntnisse
 JPA bzw. Hibernate verhält sich komisch beim automatischen Einfügen von Daten. Wird `javax.persistence.schema-generation.database.action` auf `create` gesetzt, versucht JPA bei jedem starten der Applikation die Tabellen nochmals zu erstellen und wirft Unmengen an Exceptions. Schlussendlich haben wir uns dazu entschieden, `drop-and-create` zu konfigurieren, da es uns das Leben vereinfacht. In der Produktion müsste dieser Parameter natürlich weggelassen werden.
+JPA ist launisch.
 
 ### Fazit
-JPA ist launisch.
+#### Das hat mich gefreut
+Nichts, das meiste hat nicht funktioniert.
+#### Das hat mich geärgert
+Ich hatte schon wieder komplexe/verwirrende Probleme mit JPA, welche ich erst nach Stunden lösen konnte.
