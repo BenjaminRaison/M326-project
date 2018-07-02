@@ -1,6 +1,6 @@
 package net.baumink.bzz.m326.db.pojo;
 
-import net.baumink.bzz.m326.db.Status;
+import net.baumink.bzz.m326.db.enums.Status;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -13,9 +13,9 @@ import java.util.List;
 public class CSOrder {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String orderNumber;
     @ManyToOne(fetch = FetchType.EAGER)
     private Client client;
@@ -50,6 +50,22 @@ public class CSOrder {
         this.deliveryExpected = deliveryExpected;
         this.status = status;
         this.items = items;
+    }
+
+    /**
+     * Cloning constructor
+     *
+     * @param order the order to clone
+     */
+    public CSOrder(CSOrder order) {
+        this.id = order.id;
+        this.orderNumber = order.getOrderNumber();
+        this.client = order.getClient();
+        this.lastEditor = order.getLastEditor();
+        this.lastEdited = order.getLastEdited();
+        this.deliveryExpected = order.getDeliveryExpected();
+        this.status = order.getStatus();
+        this.items = order.getItems();
     }
 
     public Integer getId() {

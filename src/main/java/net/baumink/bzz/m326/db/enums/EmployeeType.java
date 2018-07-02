@@ -1,4 +1,4 @@
-package net.baumink.bzz.m326.db;
+package net.baumink.bzz.m326.db.enums;
 
 public enum EmployeeType {
     VERTRIEB("Vertrieb"), LAGER("Lager"), LIEFERANT("Lieferant");

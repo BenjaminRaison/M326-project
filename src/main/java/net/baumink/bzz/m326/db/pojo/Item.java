@@ -2,6 +2,7 @@ package net.baumink.bzz.m326.db.pojo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
@@ -9,8 +10,8 @@ import java.math.BigDecimal;
 public class Item {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private String description;
     private BigDecimal price;
@@ -32,11 +33,11 @@ public class Item {
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,7 +72,7 @@ public class Item {
 
         Item item = (Item) o;
 
-        if (id != item.id) return false;
+        if (id != null ? !id.equals(item.id) : item.id != null) return false;
         if (name != null ? !name.equals(item.name) : item.name != null) return false;
         if (description != null ? !description.equals(item.description) : item.description != null) return false;
         return price != null ? price.equals(item.price) : item.price == null;
@@ -79,7 +80,7 @@ public class Item {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
@@ -88,11 +89,6 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
+        return name;
     }
 }
