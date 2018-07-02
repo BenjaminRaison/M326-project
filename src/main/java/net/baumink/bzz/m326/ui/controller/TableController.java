@@ -5,14 +5,21 @@ import net.baumink.bzz.m326.db.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.pojo.Employee;
 
+import javax.persistence.EntityManager;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TableController {
+public class TableController { // TODO: Discuss: is this a good name?
 
     private Employee selectedEmployee;
+    private EntityManager entityManager;
+
+    public TableController() {
+        this.entityManager = DBConnection.getEntityManager();
+    }
 
     /**
      * Fetches all orders from the database.
@@ -22,17 +29,29 @@ public class TableController {
      * @return all orders
      */
     List<CSOrder> getTableData() {
-        return DBConnection.getEntityManager().createQuery("select o from CSOrder o", CSOrder.class).getResultList();
+        return entityManager.createQuery("select o from CSOrder o", CSOrder.class).getResultList();
     }
 
     public CSOrder getOrderByOrderNumber(String orderNumber) {
-        return DBConnection.getEntityManager().createQuery("select o from CSOrder o where orderNumber=:num", CSOrder.class).
+        return entityManager.createQuery("select o from CSOrder o where orderNumber=:num", CSOrder.class).
                 setParameter("num", orderNumber).
                 getSingleResult();
     }
 
     public List<Employee> getAllEmployees() {
-        return DBConnection.getEntityManager().createQuery("select o from Employee o", Employee.class).getResultList();
+        return entityManager.createQuery("select o from Employee o", Employee.class).getResultList();
+    }
+
+    public void updateOrderStatus(String orderNr, Status status) {
+        CSOrder order = getOrderByOrderNumber(orderNr);
+
+        entityManager.getTransaction().begin();
+
+        order.setStatus(status);
+        order.setLastEdited(ZonedDateTime.now());
+        order.setLastEditor(selectedEmployee);
+
+        entityManager.getTransaction().commit();
     }
 
     public List<CSOrder> getFilteredData() {
@@ -57,7 +76,9 @@ public class TableController {
     }
 
     /**
-     * @return a set of statuses the user can set on an order. Also includes the filter criteria (the visible statuses), so users can revert mistakes
+     * @return a set of statuses the user can set on an order.
+     * Also includes the filter criteria (the visible statuses),
+     * so users can revert mistakes
      */
     public Set<Status> getAvailableStatuses() {
         Set<Status> status = new HashSet<>();

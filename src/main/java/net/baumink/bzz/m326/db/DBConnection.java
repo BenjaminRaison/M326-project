@@ -6,9 +6,13 @@ import javax.persistence.Persistence;
 public class DBConnection {
 
     private static boolean isProd = true;
+    private static EntityManager entityManager;
 
     public static EntityManager getEntityManager() {
-        return isProd ? getProdEntityManager() : getTestEntityManager();
+        if (entityManager == null || !entityManager.isOpen()) {
+            entityManager = isProd ? getProdEntityManager() : getTestEntityManager();
+        }
+        return entityManager;
     }
 
     private static EntityManager getProdEntityManager() {

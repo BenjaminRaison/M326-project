@@ -9,6 +9,7 @@ import net.baumink.bzz.m326.ui.view.util.DateCellRenderer;
 import net.baumink.bzz.m326.ui.view.util.TableMouseListener;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
@@ -19,35 +20,38 @@ import java.util.Vector;
 public class MainWindow extends JFrame {
 
     private final JComboBox<Employee> comboEmployee;
-    private TableController tableController;
+    private TableController controller;
     private JTable table;
     private DefaultTableModel tableModel;
+    private JComboBox<Status> comboStatus;
+
+    private boolean changing = false;
 
     public MainWindow() {
         super();
-        tableController = new TableController();
+        controller = new TableController();
 
         setupWindow();
 
 
-        JPanel panelComboBoxes = new JPanel(); // TODO: Rename
+        JPanel panelTopBar = new JPanel();
         FlowLayout layoutComboBoxes = new FlowLayout();
         layoutComboBoxes.setAlignment(FlowLayout.RIGHT);
-        panelComboBoxes.setLayout(layoutComboBoxes);
+        panelTopBar.setLayout(layoutComboBoxes);
 
 
-        java.util.List<Employee> list = tableController.getAllEmployees();
+        java.util.List<Employee> list = controller.getAllEmployees();
 
         Employee[] employees = new Employee[list.size()];
         employees = list.toArray(employees);
 
         comboEmployee = new JComboBox<>(employees);
         comboEmployee.addActionListener(e -> updateData());
-        panelComboBoxes.add(comboEmployee);
+        panelTopBar.add(comboEmployee);
 
         initTable();
 
-        add(panelComboBoxes, BorderLayout.NORTH);
+        add(panelTopBar, BorderLayout.NORTH);
         add(new JScrollPane(table), BorderLayout.CENTER);
 
         setVisible(true);
@@ -69,7 +73,7 @@ public class MainWindow extends JFrame {
         headerColumn.addElement("Lieferung");
         headerColumn.addElement("Zuletzt bearbeitet");
         headerColumn.addElement("Zuletzt bearbeitet von");
-        headerColumn.addElement("Details"); // Empty Header -> Column for buttons
+        headerColumn.addElement("Details");
 
         tableModel = new DefaultTableModel() {
             @Override
@@ -87,45 +91,65 @@ public class MainWindow extends JFrame {
         TableRowSorter sorter = (TableRowSorter) table.getRowSorter();
         sorter.setSortable(6, false);
 
-        table.addMouseListener(new TableMouseListener(table, 6, (event, row) -> {
-            String orderNr = table.getValueAt(row, 0).toString();
-            CSOrder order = tableController.getOrderByOrderNumber(orderNr);
-            new DialogItems(order);
-        }));
-
-        updateData();
-
-        table.getModel().addTableModelListener(tableModelEvent -> {
-
-        });
-    }
-
-    private void updateData() {
-        // So we don't have to cast
-        tableController.setSelectedEmployee(comboEmployee.getModel().getElementAt(comboEmployee.getSelectedIndex()));
-        updateTable();
-    }
-
-    private void updateTable() { // TODO: Why are we creating a new combo box every update?
-        java.util.List<CSOrder> orders = tableController.getFilteredData();
-        JComboBox<Status> comboStatus = new JComboBox<>();
-        for (Status s : tableController.getAvailableStatuses()) {
-            comboStatus.addItem(s);
-        }
+        comboStatus = new JComboBox<>();
 
         TableColumn columnStatus = table.getColumnModel().getColumn(2);
         columnStatus.setCellEditor(new DefaultCellEditor(comboStatus));
 
+
         TableColumn columnDeliveryExpected = table.getColumnModel().getColumn(3);
         columnDeliveryExpected.setCellRenderer(new DateCellRenderer("dd-MM-yyyy"));
+
 
         TableColumn columnLastEdited = table.getColumnModel().getColumn(5);
         columnLastEdited.setCellRenderer(new DateCellRenderer("dd-MM-yyyy hh:mm"));
 
+        table.addMouseListener(new TableMouseListener(table, 6, (event, row) -> {
+            String orderNr = table.getValueAt(row, 0).toString();
+            CSOrder order = controller.getOrderByOrderNumber(orderNr);
+            new DialogItems(order);
+        }));
         table.getColumnModel().getColumn(6).setCellRenderer(new ComponentCellRenderer());
 
-        tableModel.setRowCount(orders.size());
 
+        tableModel.addTableModelListener(e -> {
+                    int row = table.getSelectedRow();
+                    if (e.getType() == TableModelEvent.UPDATE && !changing && row > -1) {
+                        changing = true;
+
+                        String orderNr = table.getValueAt(row, 0).toString();
+                        Status status = (Status) table.getValueAt(row, 2);
+
+                        controller.updateOrderStatus(orderNr, status);
+
+                        SwingUtilities.invokeLater(() -> {
+                            this.updateData();
+                            changing = false;
+                        });
+                    }
+                }
+        );
+
+        updateData();
+    }
+
+    private void updateData() {
+        // So we don't have to cast
+        controller.setSelectedEmployee(comboEmployee.getModel().getElementAt(comboEmployee.getSelectedIndex()));
+        updateTable();
+        revalidate();
+        repaint();
+    }
+
+    private void updateTable() {
+        java.util.List<CSOrder> orders = controller.getFilteredData();
+
+        comboStatus.removeAllItems();
+        for (Status s : controller.getAvailableStatuses()) {
+            comboStatus.addItem(s);
+        }
+
+        tableModel.setRowCount(orders.size());
 
         int row = 0;
         int column = 0;
@@ -136,7 +160,7 @@ public class MainWindow extends JFrame {
             tableModel.setValueAt(order.getDeliveryExpected(), row, column++);
             tableModel.setValueAt(order.getLastEditor(), row, column++);
             tableModel.setValueAt(order.getLastEdited(), row, column++);
-            tableModel.setValueAt(new JButton("Details"), row, column++);
+            tableModel.setValueAt(new JButton("Details"), row, column);
             column = 0;
             row++;
         }

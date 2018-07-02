@@ -38,6 +38,7 @@ public class DialogItems extends JDialog {
                 return false;
             }
         };
+
         JTable table = new JTable(model);
         table.setFillsViewportHeight(true);
         table.setAutoCreateRowSorter(true);

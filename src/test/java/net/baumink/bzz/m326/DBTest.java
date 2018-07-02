@@ -98,4 +98,21 @@ class DBTest {
 
         assertEquals(1, entityManager.createQuery("select o from CSOrder o").getResultList().size());
     }
+
+    @Test
+    void test_DB_update_order_null_dependencies() {
+        CSOrder order = new CSOrder("123", null, null, ZonedDateTime.now(), ZonedDateTime.now(), Status.AUFBEREITET, new ArrayList<>());
+        entityManager.getTransaction().begin();
+        entityManager.persist(order);
+        entityManager.getTransaction().commit();
+
+        assertEquals(1, entityManager.createQuery("select o from CSOrder o").getResultList().size());
+
+        entityManager.getTransaction().begin();
+        order.setDeliveryExpected(ZonedDateTime.of(2001, 9, 1, 0, 0, 0, 0, java.time.ZoneId.of("Europe/Zurich")));
+        entityManager.getTransaction().commit();
+
+        assertEquals(ZonedDateTime.of(2001, 9, 1, 0, 0, 0, 0, java.time.ZoneId.of("Europe/Zurich")), order.getDeliveryExpected());
+    }
+
 }
