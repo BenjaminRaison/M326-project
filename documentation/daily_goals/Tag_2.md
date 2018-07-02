@@ -18,7 +18,11 @@ Geplant war dass ich das Exceptionhandling implementiere und ggf. noch mit dem G
 ### Erkenntnisse
 Das Globale Exceptionhandling funktioniert. Das MainFrame für die GUI ist auch schon fertig. Nächstes Mal muss ich nurnoch die einzelnen JPanels programmieren.
 ### Fazit
-Der Tag verlief gut, die Ziele wurden erreicht.
+####Das hat mich gefreut:
+Das Exceptionhandling kann man so wie ich es implementiert habe, richtig einfach umsetzen. Der Tag verlief gut, die Ziele wurden erreicht.
+
+####Das hat mich geärgert:
+Zielsetzung besser wieder anpassen, da gibt es noch Luft nach oben! Ich hätte bei der GUI auch schneller sein müssen.
 
 
 ## Tagebuch Benji

@@ -21,7 +21,11 @@ Ich habe doch länger gebraucht als geplant.
 
 
 ### Fazit
-Bei der GUI braucht man doch länger als geplant, ich sollte beim nächstem Mal direkt mehr Zeit einplanen
+#### Das hat mich gefreut:
+Ich konnte schon einige Dinge in der GUI implementieren.
+
+#### Das hat mich geärgert:
+Ich konnte das JFrame nicht fertig machen, da dies wenn man es sorgfältig mache sehr viel Zeit beantspruchen kann.
 
 ## Tagebuch Benji
 ### Tätigkeiten

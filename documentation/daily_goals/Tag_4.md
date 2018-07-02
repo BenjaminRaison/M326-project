@@ -13,7 +13,13 @@ Mein Ziel war es heute ein JTable zu implementieren und das ganz mit der (auch v
 ### Erkenntnisse
 Neues über Git gelernt. Richtige verwendung von Commits.
 ### Fazit
-Git ist toll.
+#### Das hat mich gefreut:
+Ich habe mein Wissen über Git aufgefrischt. Git ist toll.
+
+#### Das hat mich geärgert:
+Swing ist sehr mühsam was GUIs bauen anbelangt. Es ist eine sehr veraltete Technologie...
+
+
 
 ## Tagebuch Benji
 ### Tätigkeiten

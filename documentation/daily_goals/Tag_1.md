@@ -18,7 +18,11 @@ Die Ziele habe ich erreicht.
 Das Projekt funktioniert in meiner IDE. Ich weiss jetzt wie die Datenbank von der Architektur aussieht. Ich habe das Klassendiagramm zum Projekt erstellt
 
 ### Fazit
-Tag war erfolgreich.
+####Das hat mich gefreut:
+Tag war erfolgreich. Alle Tagesziele wurden erreicht. Zeitplan eingehalten. 
+
+####Das hat mich geärgert:
+Zielsetzung besser anpassen, da gibt es noch Luft nach oben! Mehr Ziele pro Tag einplanen.
 
 ## Tagebuch Benji
 ### Tätigkeiten
