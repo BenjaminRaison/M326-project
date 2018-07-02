@@ -45,12 +45,14 @@ class DialogSplitOrderTest {
 
     @BeforeAll
     static void init() {
-        if (System.getenv("travis").equals("ci")) return;
+        String envTravis = System.getenv("travis");
+        if (envTravis != null && envTravis.equals("ci")) return;
+
         dialog = new DialogSplitOrder(new CSOrder("1", null, null, null,
                 null, Status.BESTELLT, new ArrayList<>()), null);
         dialog.dispose();
         DBConnection.setIsTest();
-
+        System.out.println("================================================================");
         DBConnection.getEntityManager().getTransaction().begin();
         DBConnection.getEntityManager().createQuery("delete from CSOrder o").executeUpdate();
         DBConnection.getEntityManager().getTransaction().commit();
