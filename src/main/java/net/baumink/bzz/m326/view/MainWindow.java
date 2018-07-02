@@ -3,7 +3,9 @@ package net.baumink.bzz.m326.view;
 import net.baumink.bzz.m326.db.pojo.Employee;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.Vector;
 import java.util.ArrayList;
 
 
@@ -11,10 +13,8 @@ public class MainWindow extends JFrame {
 
     private static final String[] DEPARTMENTS = {"Lager", "Vertrieb", "Lieferant"};
     private final JComboBox<Employee> comboEmployee;
-    private final JComboBox<String> comboDepartment;
 
-    private final TablePanel tablePanel;
-
+    private JTable table;
     public MainWindow() {
         super();
 
@@ -24,7 +24,12 @@ public class MainWindow extends JFrame {
         setSize(new Dimension(800, 500));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+
         JPanel panelComboBoxes = new JPanel(); // TODO: Rename
+        FlowLayout layoutComboBoxes = new FlowLayout();
+        layoutComboBoxes.setAlignment(FlowLayout.RIGHT);
+        panelComboBoxes.setLayout(layoutComboBoxes);
+
 
         java.util.List<Employee> list = new ArrayList<>();// FIXME employeeDao.getAllEmployees();
 
@@ -32,26 +37,31 @@ public class MainWindow extends JFrame {
         employees = list.toArray(employees);
 
         comboEmployee = new JComboBox<>(employees);
-        comboDepartment = new JComboBox<>(DEPARTMENTS);
 
-        comboEmployee.addActionListener(e -> updateData());
-        comboDepartment.addActionListener(e -> updateData());
+        Vector<String> headerColumn = new Vector<>();
+        headerColumn.addElement("ID");
+        headerColumn.addElement("Client");
+        headerColumn.addElement("Status");
+        headerColumn.addElement("Delivery planned");
+        headerColumn.addElement("Last Edited by");
+        headerColumn.addElement("");
 
-        tablePanel = new TablePanel();
+        DefaultTableModel modelTable = new DefaultTableModel(2, 2);
+        modelTable.setColumnIdentifiers(headerColumn);
+        table = new JTable(modelTable);
 
         panelComboBoxes.add(comboEmployee);
-        panelComboBoxes.add(comboDepartment);
-
         add(panelComboBoxes, BorderLayout.NORTH);
-        add(tablePanel, BorderLayout.CENTER);
+        add(new JScrollPane(table), BorderLayout.CENTER);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        comboEmployee.addActionListener(e -> updateData());
 
         setVisible(true);
     }
 
     private void updateData() {
-        tablePanel.updateData(
-                (String) comboDepartment.getSelectedItem(),
-                (Employee) comboEmployee.getSelectedItem());
+        //TODO
     }
 
 }
