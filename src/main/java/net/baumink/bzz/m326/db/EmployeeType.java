@@ -1,7 +1,7 @@
 package net.baumink.bzz.m326.db;
 
 public enum EmployeeType {
-    VERTRIEB("Vertrieb"), LAGER("LAGER"), LIEFERANT("Lieferant");
+    VERTRIEB("Vertrieb"), LAGER("Lager"), LIEFERANT("Lieferant");
 
     private final String value;
 

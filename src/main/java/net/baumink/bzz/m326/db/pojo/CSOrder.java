@@ -17,14 +17,14 @@ public class CSOrder {
     private Integer id;
     @Column(unique = true, nullable = false)
     private String orderNumber;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Client client;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Employee lastEditor;
     private ZonedDateTime lastEdited;
     private ZonedDateTime deliveryExpected;
     private Status status;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Item> items;
 
     public CSOrder() {

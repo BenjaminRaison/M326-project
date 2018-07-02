@@ -17,6 +17,7 @@ public class Employee {
     private EmployeeType type;
 
     public Employee() {
+        // default constructor
     }
 
     public Employee(String firstName, String surname, EmployeeType type) {

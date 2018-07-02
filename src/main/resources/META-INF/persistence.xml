@@ -11,12 +11,12 @@
         <class>net.baumink.bzz.m326.db.pojo.Client</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:./database/db"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value="sa"/>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
 
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>

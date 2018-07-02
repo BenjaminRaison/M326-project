@@ -1,13 +1,14 @@
 package net.baumink.bzz.m326;
 
-import net.baumink.bzz.m326.view.MainWindow;
+import net.baumink.bzz.m326.ui.view.MainWindow;
 
 import javax.swing.*;
 
 /**
  * The type Launcher.
- *  @author Benjamin Raison, Jonas Gredig
- *  @version 1.0
+ *
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
  */
 public class Launcher {
 
@@ -35,6 +36,7 @@ public class Launcher {
                 message = e.getClass().getCanonicalName();
             }
             JOptionPane.showMessageDialog(null, message, "Fehler", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         });
     }
 }
