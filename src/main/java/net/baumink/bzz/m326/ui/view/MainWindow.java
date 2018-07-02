@@ -1,6 +1,6 @@
 package net.baumink.bzz.m326.ui.view;
 
-import net.baumink.bzz.m326.db.Status;
+import net.baumink.bzz.m326.db.enums.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.pojo.Employee;
 import net.baumink.bzz.m326.ui.controller.TableController;
@@ -74,6 +74,7 @@ public class MainWindow extends JFrame {
         headerColumn.addElement("Zuletzt bearbeitet");
         headerColumn.addElement("Zuletzt bearbeitet von");
         headerColumn.addElement("Details");
+        headerColumn.addElement("Teilen");
 
         tableModel = new DefaultTableModel() {
             @Override
@@ -93,24 +94,7 @@ public class MainWindow extends JFrame {
 
         comboStatus = new JComboBox<>();
 
-        TableColumn columnStatus = table.getColumnModel().getColumn(2);
-        columnStatus.setCellEditor(new DefaultCellEditor(comboStatus));
-
-
-        TableColumn columnDeliveryExpected = table.getColumnModel().getColumn(3);
-        columnDeliveryExpected.setCellRenderer(new DateCellRenderer("dd-MM-yyyy"));
-
-
-        TableColumn columnLastEdited = table.getColumnModel().getColumn(5);
-        columnLastEdited.setCellRenderer(new DateCellRenderer("dd-MM-yyyy hh:mm"));
-
-        table.addMouseListener(new TableMouseListener(table, 6, (event, row) -> {
-            String orderNr = table.getValueAt(row, 0).toString();
-            CSOrder order = controller.getOrderByOrderNumber(orderNr);
-            new DialogItems(order);
-        }));
-        table.getColumnModel().getColumn(6).setCellRenderer(new ComponentCellRenderer());
-
+        initTableColumns();
 
         tableModel.addTableModelListener(e -> {
                     int row = table.getSelectedRow();
@@ -131,6 +115,34 @@ public class MainWindow extends JFrame {
         );
 
         updateData();
+    }
+
+    private void initTableColumns() {
+        TableColumn columnStatus = table.getColumnModel().getColumn(2);
+        columnStatus.setCellEditor(new DefaultCellEditor(comboStatus));
+
+
+        TableColumn columnDeliveryExpected = table.getColumnModel().getColumn(3);
+        columnDeliveryExpected.setCellRenderer(new DateCellRenderer("dd-MM-yyyy"));
+
+
+        TableColumn columnLastEdited = table.getColumnModel().getColumn(5);
+        columnLastEdited.setCellRenderer(new DateCellRenderer("dd-MM-yyyy hh:mm"));
+
+        table.addMouseListener(new TableMouseListener(table, 6, (event, row) -> {
+            String orderNr = table.getValueAt(row, 0).toString();
+            CSOrder order = controller.getOrderByOrderNr(orderNr);
+            new DialogItems(order);
+        }));
+        table.getColumnModel().getColumn(6).setCellRenderer(new ComponentCellRenderer());
+
+        table.addMouseListener(new TableMouseListener(table, 7, (event, row) -> {
+            String orderNr = table.getValueAt(row, 0).toString();
+            CSOrder order = controller.getOrderByOrderNr(orderNr);
+            new DialogSplitOrder(order, controller.getSelectedEmployee()).showDialog();
+            updateData();
+        }));
+        table.getColumnModel().getColumn(7).setCellRenderer(new ComponentCellRenderer());
     }
 
     private void updateData() {
@@ -160,7 +172,10 @@ public class MainWindow extends JFrame {
             tableModel.setValueAt(order.getDeliveryExpected(), row, column++);
             tableModel.setValueAt(order.getLastEditor(), row, column++);
             tableModel.setValueAt(order.getLastEdited(), row, column++);
-            tableModel.setValueAt(new JButton("Details"), row, column);
+            tableModel.setValueAt(new JButton("Details"), row, column++);
+            JButton btnSplit = new JButton("Bestellung teilen");
+            if (order.getItems().size() < 2) btnSplit.setEnabled(false);
+            tableModel.setValueAt(btnSplit, row, column);
             column = 0;
             row++;
         }

@@ -1,6 +1,7 @@
 package net.baumink.bzz.m326.ui.view.util;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.function.ObjIntConsumer;
@@ -24,7 +25,12 @@ public class TableMouseListener extends MouseAdapter {
         int row = mouseEvent.getY() / table.getRowHeight();
         if (row >= table.getRowCount()) return;
 
-        ((JButton) table.getValueAt(row, column)).doClick();
+        Object value = table.getValueAt(row, column);
+        if (value instanceof Component) {
+            if (!((Component) value).isEnabled()) {
+                return;
+            }
+        }
         consumer.accept(mouseEvent, row);
     }
 }

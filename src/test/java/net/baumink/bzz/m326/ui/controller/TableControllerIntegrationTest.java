@@ -1,8 +1,8 @@
 package net.baumink.bzz.m326.ui.controller;
 
 import net.baumink.bzz.m326.db.DBConnection;
-import net.baumink.bzz.m326.db.EmployeeType;
-import net.baumink.bzz.m326.db.Status;
+import net.baumink.bzz.m326.db.enums.EmployeeType;
+import net.baumink.bzz.m326.db.enums.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.pojo.Employee;
 import org.junit.jupiter.api.AfterEach;
@@ -56,7 +56,7 @@ class TableControllerIntegrationTest {
         entityManager.persist(order);
         entityManager.getTransaction().commit();
 
-        assertDoesNotThrow(() -> controller.getOrderByOrderNumber("123A"));
+        assertDoesNotThrow(() -> controller.getOrderByOrderNr("123A"));
     }
 
     @ParameterizedTest

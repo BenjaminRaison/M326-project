@@ -1,12 +1,10 @@
 package net.baumink.bzz.m326.ui.controller;
 
-import net.baumink.bzz.m326.db.DBConnection;
-import net.baumink.bzz.m326.db.Status;
+import net.baumink.bzz.m326.db.Database;
+import net.baumink.bzz.m326.db.enums.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.pojo.Employee;
 
-import javax.persistence.EntityManager;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -15,11 +13,7 @@ import java.util.stream.Collectors;
 public class TableController { // TODO: Discuss: is this a good name?
 
     private Employee selectedEmployee;
-    private EntityManager entityManager;
 
-    public TableController() {
-        this.entityManager = DBConnection.getEntityManager();
-    }
 
     /**
      * Fetches all orders from the database.
@@ -28,30 +22,20 @@ public class TableController { // TODO: Discuss: is this a good name?
      *
      * @return all orders
      */
-    List<CSOrder> getTableData() {
-        return entityManager.createQuery("select o from CSOrder o", CSOrder.class).getResultList();
+    List<CSOrder> getAllOrders() {
+        return Database.getInstance().getAllOrders();
     }
 
-    public CSOrder getOrderByOrderNumber(String orderNumber) {
-        return entityManager.createQuery("select o from CSOrder o where orderNumber=:num", CSOrder.class).
-                setParameter("num", orderNumber).
-                getSingleResult();
+    public CSOrder getOrderByOrderNr(String orderNumber) {
+        return Database.getInstance().getOrderByOrderNr(orderNumber);
     }
 
     public List<Employee> getAllEmployees() {
-        return entityManager.createQuery("select o from Employee o", Employee.class).getResultList();
+        return Database.getInstance().getAllEmployees();
     }
 
     public void updateOrderStatus(String orderNr, Status status) {
-        CSOrder order = getOrderByOrderNumber(orderNr);
-
-        entityManager.getTransaction().begin();
-
-        order.setStatus(status);
-        order.setLastEdited(ZonedDateTime.now());
-        order.setLastEditor(selectedEmployee);
-
-        entityManager.getTransaction().commit();
+        Database.getInstance().updateOrderStatus(orderNr, status, selectedEmployee);
     }
 
     public List<CSOrder> getFilteredData() {
@@ -68,7 +52,7 @@ public class TableController { // TODO: Discuss: is this a good name?
                 status.add(Status.VERSANDBEREIT);
                 break;
         }
-        return getTableData().stream().filter(csOrder -> status.contains(csOrder.getStatus())).collect(Collectors.toList());
+        return getAllOrders().stream().filter(csOrder -> status.contains(csOrder.getStatus())).collect(Collectors.toList());
     }
 
     public void setSelectedEmployee(Employee selectedEmployee) {
@@ -99,5 +83,9 @@ public class TableController { // TODO: Discuss: is this a good name?
                 break;
         }
         return status;
+    }
+
+    public Employee getSelectedEmployee() {
+        return selectedEmployee;
     }
 }

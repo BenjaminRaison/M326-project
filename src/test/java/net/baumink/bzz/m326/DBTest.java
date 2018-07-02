@@ -1,8 +1,8 @@
 package net.baumink.bzz.m326;
 
 import net.baumink.bzz.m326.db.DBConnection;
-import net.baumink.bzz.m326.db.EmployeeType;
-import net.baumink.bzz.m326.db.Status;
+import net.baumink.bzz.m326.db.enums.EmployeeType;
+import net.baumink.bzz.m326.db.enums.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.pojo.Client;
 import net.baumink.bzz.m326.db.pojo.Employee;
