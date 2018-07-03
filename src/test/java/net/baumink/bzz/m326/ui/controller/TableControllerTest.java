@@ -1,7 +1,7 @@
 package net.baumink.bzz.m326.ui.controller;
 
-import net.baumink.bzz.m326.db.EmployeeType;
-import net.baumink.bzz.m326.db.Status;
+import net.baumink.bzz.m326.db.enums.EmployeeType;
+import net.baumink.bzz.m326.db.enums.Status;
 import net.baumink.bzz.m326.db.pojo.CSOrder;
 import net.baumink.bzz.m326.db.pojo.Employee;
 import org.junit.jupiter.api.Assertions;
@@ -51,7 +51,7 @@ class TableControllerTest {
 
     private void genericTestGetFilteredData(EmployeeType type) {
         TableController controller = mock(TableController.class);
-        when(controller.getTableData()).thenReturn(orders);
+        when(controller.getAllOrders()).thenReturn(orders);
         when(controller.getFilteredData()).thenCallRealMethod();
         doCallRealMethod().when(controller).setSelectedEmployee(anyObject());
 

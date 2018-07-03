@@ -1,17 +1,18 @@
 package net.baumink.bzz.m326.db.pojo;
 
-import net.baumink.bzz.m326.db.EmployeeType;
+import net.baumink.bzz.m326.db.enums.EmployeeType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Employee {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String firstName;
     private String surname;
     private EmployeeType type;
@@ -33,11 +34,11 @@ public class Employee {
         this.type = type;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -72,7 +73,7 @@ public class Employee {
 
         Employee employee = (Employee) o;
 
-        if (id != employee.id) return false;
+        if (id != null ? !id.equals(employee.id) : employee.id != null) return false;
         if (firstName != null ? !firstName.equals(employee.firstName) : employee.firstName != null) return false;
         if (surname != null ? !surname.equals(employee.surname) : employee.surname != null) return false;
         return type == employee.type;
@@ -80,7 +81,7 @@ public class Employee {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);

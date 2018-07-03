@@ -2,14 +2,15 @@ package net.baumink.bzz.m326.db.pojo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Client {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String surname;
     private String firstName;
     private String address;
@@ -43,11 +44,11 @@ public class Client {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -114,7 +115,7 @@ public class Client {
 
         Client client = (Client) o;
 
-        if (id != client.id) return false;
+        if (id != null ? !id.equals(client.id) : client.id != null) return false;
         if (surname != null ? !surname.equals(client.surname) : client.surname != null) return false;
         if (firstName != null ? !firstName.equals(client.firstName) : client.firstName != null) return false;
         if (address != null ? !address.equals(client.address) : client.address != null) return false;
@@ -126,7 +127,7 @@ public class Client {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);

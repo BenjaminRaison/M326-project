@@ -40,4 +40,7 @@ Jonas habe ich mit seinen Zielen unterstützt.
 * Keine
 
 ### Fazit
-Der Tag verlief gut.
+#### Das hat mich gefreut
+Der Tag verlief gut, ich habe meine Ziele erreicht.
+#### Das hat mich geärgert
+Erfreulicherweise nichts.

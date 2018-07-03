@@ -46,4 +46,7 @@ Alle ziele wurden erreicht.
 * UCanAccess braucht keine Authentifizierung
 
 ### Fazit
+#### Das hat mich gefreut
 Der Tag verlief gut.
+#### Das hat mich geärgert
+Die Probleme mit Access wären nicht zwingend nötig gewesen.

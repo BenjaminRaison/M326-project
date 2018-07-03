@@ -7,11 +7,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class DialogItems extends JDialog {
+class DialogItems extends JDialog {
 
     private final CSOrder order;
 
-    public DialogItems(CSOrder order) {
+    DialogItems(CSOrder order) {
         super();
         this.order = order;
         init();
