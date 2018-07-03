@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CoolShoes order
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
  */
 @Entity
 public class CSOrder {

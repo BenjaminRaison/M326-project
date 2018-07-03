@@ -5,7 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-
+/**
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
+ */
 @Entity
 public class Item {
 

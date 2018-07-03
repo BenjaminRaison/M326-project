@@ -16,7 +16,10 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.Vector;
 
-
+/**
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
+ */
 public class MainWindow extends JFrame {
 
     private final JComboBox<Employee> comboEmployee;

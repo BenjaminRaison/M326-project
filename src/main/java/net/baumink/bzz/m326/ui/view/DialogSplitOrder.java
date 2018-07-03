@@ -10,7 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-
+/**
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
+ */
 public class DialogSplitOrder extends JDialog {
 
     private static final char[] ALPHABET =

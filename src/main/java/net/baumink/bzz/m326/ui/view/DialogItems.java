@@ -6,7 +6,10 @@ import net.baumink.bzz.m326.db.pojo.Item;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
+/**
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
+ */
 class DialogItems extends JDialog {
 
     private final CSOrder order;

@@ -6,7 +6,10 @@ import net.baumink.bzz.m326.db.pojo.Employee;
 
 import java.time.ZonedDateTime;
 import java.util.List;
-
+/**
+ * @author Benjamin Raison, Jonas Gredig
+ * @version 1.0
+ */
 public class Database {
 
     private static Database INSTANCE;
