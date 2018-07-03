@@ -4,6 +4,7 @@ import net.baumink.bzz.m326.db.enums.Status;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,7 @@ public class CSOrder {
     private Status status;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Item> items;
+    private boolean archived = false;
 
     public CSOrder() {
         // default constructor
@@ -52,6 +54,17 @@ public class CSOrder {
         this.items = items;
     }
 
+    public CSOrder(String orderNumber, Client client, Employee lastEditor, ZonedDateTime lastEdited, ZonedDateTime deliveryExpected, Status status, List<Item> items, boolean archived) {
+        this.orderNumber = orderNumber;
+        this.client = client;
+        this.lastEditor = lastEditor;
+        this.lastEdited = lastEdited;
+        this.deliveryExpected = deliveryExpected;
+        this.status = status;
+        this.items = items;
+        this.archived = archived;
+    }
+
     /**
      * Cloning constructor
      *
@@ -65,7 +78,8 @@ public class CSOrder {
         this.lastEdited = order.getLastEdited();
         this.deliveryExpected = order.getDeliveryExpected();
         this.status = order.getStatus();
-        this.items = order.getItems();
+        this.items = new ArrayList<>(order.getItems());
+        this.archived = order.isArchived();
     }
 
     public Integer getId() {
@@ -132,6 +146,14 @@ public class CSOrder {
         this.items = items;
     }
 
+    public boolean isArchived() {
+        return archived;
+    }
+
+    public void setArchived(boolean archived) {
+        this.archived = archived;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -139,6 +161,7 @@ public class CSOrder {
 
         CSOrder order = (CSOrder) o;
 
+        if (archived != order.archived) return false;
         if (id != null ? !id.equals(order.id) : order.id != null) return false;
         if (orderNumber != null ? !orderNumber.equals(order.orderNumber) : order.orderNumber != null) return false;
         if (client != null ? !client.equals(order.client) : order.client != null) return false;
@@ -160,6 +183,7 @@ public class CSOrder {
         result = 31 * result + (deliveryExpected != null ? deliveryExpected.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         result = 31 * result + (items != null ? items.hashCode() : 0);
+        result = 31 * result + (archived ? 1 : 0);
         return result;
     }
 }

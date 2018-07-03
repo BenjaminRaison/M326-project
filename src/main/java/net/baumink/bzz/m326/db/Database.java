@@ -22,13 +22,14 @@ public class Database {
     }
 
     public CSOrder getOrderByOrderNr(String orderNumber) {
-        return DBConnection.getEntityManager().createQuery("select o from CSOrder o where orderNumber=:num", CSOrder.class).
+        List<CSOrder> list = DBConnection.getEntityManager().createQuery("select o from CSOrder o where o.orderNumber=:num and o.archived=false", CSOrder.class).
                 setParameter("num", orderNumber).
-                getSingleResult();
+                getResultList();
+        return list.isEmpty() ? null : list.get(0);
     }
 
     public List<CSOrder> getAllOrders() {
-        return DBConnection.getEntityManager().createQuery("select o from CSOrder o", CSOrder.class).getResultList();
+        return DBConnection.getEntityManager().createQuery("select o from CSOrder o where o.archived=false", CSOrder.class).getResultList();
     }
 
     public List<Employee> getAllEmployees() {
@@ -37,27 +38,29 @@ public class Database {
 
     public void updateOrderStatus(String orderNr, Status status, Employee employee) {
         CSOrder order = getOrderByOrderNr(orderNr);
+        if (order == null) return; // Can be null because of thread timings
+
+        CSOrder copy = new CSOrder(order);
+        copy.setId(null);
 
         DBConnection.getEntityManager().getTransaction().begin();
 
-        order.setStatus(status);
-        order.setLastEdited(ZonedDateTime.now());
-        order.setLastEditor(employee);
+        order.setArchived(true);
+        copy.setStatus(status);
+        copy.setLastEdited(ZonedDateTime.now());
+        copy.setLastEditor(employee);
+        DBConnection.getEntityManager().persist(copy);
 
         DBConnection.getEntityManager().getTransaction().commit();
-    }
-
-    private void deleteOrderNoTransaction(CSOrder order) {
-        DBConnection.getEntityManager().remove(order);
     }
 
     public void insertSplitOrder(CSOrder originalOrder, CSOrder split1, CSOrder split2) {
         DBConnection.getEntityManager().getTransaction().begin();
 
+        originalOrder.setArchived(true);
 
-        deleteOrderNoTransaction(originalOrder);
-        DBConnection.getEntityManager().persist(new CSOrder(split1));
-        DBConnection.getEntityManager().persist(new CSOrder(split2));
+        DBConnection.getEntityManager().persist(split1);
+        DBConnection.getEntityManager().persist(split2);
 
         DBConnection.getEntityManager().getTransaction().commit();
     }
