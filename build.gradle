@@ -18,6 +18,15 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes "Main-Class": "net.baumink.bzz.m326.Launcher"
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 dependencies {
     compile group: 'com.h2database', name: 'h2', version: '1.4.197'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.2.16.Final'
