@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.function.ObjIntConsumer;
+
 /**
  * @author Benjamin Raison, Jonas Gredig
  * @version 1.0

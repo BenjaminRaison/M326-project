@@ -23,12 +23,12 @@ import java.util.Vector;
 public class MainWindow extends JFrame {
 
     private final JComboBox<Employee> comboEmployee;
-    private TableController controller;
+    private final TableController controller;
     private JTable table;
     private DefaultTableModel tableModel;
     private JComboBox<Status> comboStatus;
 
-    private boolean changing = false;
+    private boolean changing = false; // Prevents race conditions on the DB
 
     public MainWindow() {
         super();
@@ -36,12 +36,10 @@ public class MainWindow extends JFrame {
 
         setupWindow();
 
-
         JPanel panelTopBar = new JPanel();
         FlowLayout layoutComboBoxes = new FlowLayout();
         layoutComboBoxes.setAlignment(FlowLayout.RIGHT);
         panelTopBar.setLayout(layoutComboBoxes);
-
 
         java.util.List<Employee> list = controller.getAllEmployees();
 
@@ -124,10 +122,8 @@ public class MainWindow extends JFrame {
         TableColumn columnStatus = table.getColumnModel().getColumn(2);
         columnStatus.setCellEditor(new DefaultCellEditor(comboStatus));
 
-
         TableColumn columnDeliveryExpected = table.getColumnModel().getColumn(3);
         columnDeliveryExpected.setCellRenderer(new DateCellRenderer("dd-MM-yyyy"));
-
 
         TableColumn columnLastEdited = table.getColumnModel().getColumn(5);
         columnLastEdited.setCellRenderer(new DateCellRenderer("dd-MM-yyyy hh:mm"));
@@ -183,6 +179,5 @@ public class MainWindow extends JFrame {
             row++;
         }
     }
-
 }
 

@@ -10,11 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+
 /**
  * @author Benjamin Raison, Jonas Gredig
  * @version 1.0
  */
-public class DialogSplitOrder extends JDialog {
+class DialogSplitOrder extends JDialog {
 
     private static final char[] ALPHABET =
             {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O',
@@ -24,8 +25,14 @@ public class DialogSplitOrder extends JDialog {
     private JList<Item> listRight;
 
 
-    public DialogSplitOrder(CSOrder order, Employee currentEmployee) {
-        // FIXME: Cleanup
+    DialogSplitOrder(CSOrder order, Employee currentEmployee) {
+        init(order, currentEmployee);
+    }
+
+    private void init(CSOrder order, Employee currentEmployee) {
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setModal(true);
+        setModalityType(ModalityType.APPLICATION_MODAL);
 
         DefaultListModel<Item> modelLeft = new DefaultListModel<>();
         order.getItems().forEach(modelLeft::addElement);
@@ -43,16 +50,12 @@ public class DialogSplitOrder extends JDialog {
 
         JPanel panelCentre = new JPanel();
         panelCentre.setLayout(new BoxLayout(panelCentre, BoxLayout.Y_AXIS));
+
         JButton btnMoveRight = new JButton("→");
-        btnMoveRight.addActionListener(e -> {
-            moveToOtherList(listLeft, listRight);
-        });
+        btnMoveRight.addActionListener(e -> moveToOtherList(listLeft, listRight));
 
         JButton btnMoveLeft = new JButton("←");
-        btnMoveLeft.addActionListener(e -> {
-            moveToOtherList(listRight, listLeft);
-        });
-
+        btnMoveLeft.addActionListener(e -> moveToOtherList(listRight, listLeft));
 
         panelCentre.add(btnMoveRight);
         panelCentre.add(btnMoveLeft);
@@ -61,7 +64,6 @@ public class DialogSplitOrder extends JDialog {
         panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
         panelRight.add(new JLabel(orderNrRight));
         panelRight.add(new JScrollPane(listRight));
-
 
         JPanel panelContent = new JPanel(new GridLayout(0, 3));
         panelContent.add(panelLeft);
@@ -78,22 +80,17 @@ public class DialogSplitOrder extends JDialog {
             dispose();
         });
 
-
         panelBtn.add(btnSplit);
         panelBtn.add(btnCancel);
-
 
         this.getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
         this.getContentPane().add(panelContent);
         this.getContentPane().add(panelBtn);
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setModal(true);
-        setModalityType(ModalityType.APPLICATION_MODAL);
         pack();
     }
 
-    public void showDialog() {
+    void showDialog() {
         setVisible(true);
     }
 
@@ -105,6 +102,7 @@ public class DialogSplitOrder extends JDialog {
         }
     }
 
+    // Package-private for testing
     String getNextOrderNumber(String orderNumber) {
         if (orderNumber == null || orderNumber.trim().isEmpty()) {
             throw new IllegalArgumentException("Invalid order number: " + orderNumber);

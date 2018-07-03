@@ -5,7 +5,6 @@ import net.baumink.bzz.m326.ui.view.MainWindow;
 import javax.swing.*;
 
 /**
- *
  * @author Benjamin Raison, Jonas Gredig
  * @version 1.0
  */

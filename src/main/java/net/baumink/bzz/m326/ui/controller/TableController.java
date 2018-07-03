@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TableController { // TODO: Discuss: is this a good name?
+public class TableController {
 
     private Employee selectedEmployee;
 
@@ -55,10 +55,6 @@ public class TableController { // TODO: Discuss: is this a good name?
         return getAllOrders().stream().filter(csOrder -> status.contains(csOrder.getStatus())).collect(Collectors.toList());
     }
 
-    public void setSelectedEmployee(Employee selectedEmployee) {
-        this.selectedEmployee = selectedEmployee;
-    }
-
     /**
      * @return a set of statuses the user can set on an order.
      * Also includes the filter criteria (the visible statuses),
@@ -87,5 +83,9 @@ public class TableController { // TODO: Discuss: is this a good name?
 
     public Employee getSelectedEmployee() {
         return selectedEmployee;
+    }
+
+    public void setSelectedEmployee(Employee selectedEmployee) {
+        this.selectedEmployee = selectedEmployee;
     }
 }

@@ -10,5 +10,5 @@ public enum Status {
     AUFBEREITET,
     VERSANDBEREIT,
     GELIEFERT,
-    ABGEHOLT;
+    ABGEHOLT
 }

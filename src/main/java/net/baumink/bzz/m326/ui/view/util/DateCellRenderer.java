@@ -8,14 +8,15 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
+
 /**
  * @author Benjamin Raison, Jonas Gredig
  * @version 1.0
  */
 public class DateCellRenderer extends DefaultTableCellRenderer {
 
-    private SimpleDateFormat simpleDateFormat;
-    private DateTimeFormatter dateTimeFormatter;
+    private final SimpleDateFormat simpleDateFormat;
+    private final DateTimeFormatter dateTimeFormatter;
 
     public DateCellRenderer(String format) {
         simpleDateFormat = new SimpleDateFormat(format);

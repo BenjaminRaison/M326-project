@@ -2,6 +2,7 @@ package net.baumink.bzz.m326.db;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+
 /**
  * @author Benjamin Raison, Jonas Gredig
  * @version 1.0

@@ -10,7 +10,6 @@ import java.awt.*;
  * @author Benjamin Raison, Jonas Gredig
  * @version 1.0
  */
-
 public class ComponentCellRenderer implements TableCellRenderer {
 
     @Override
